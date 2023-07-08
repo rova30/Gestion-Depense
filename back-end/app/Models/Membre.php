@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $nom
  * @property string $prenom
  * @property Carbon $date_naissance
+ * @property int $sexe_id
  * @property string $login
  * @property string $mdp
  *
@@ -38,8 +39,9 @@ class Membre extends Model
 	protected $casts = [
 		'famille_id' => 'int',
 		'role_id' => 'int',
-		'date_naissance' => 'datetime'
-	];
+		'date_naissance' => 'datetime',
+        'sexe_id' => 'int',
+    ];
 
 	protected $fillable = [
 		'famille_id',
@@ -47,7 +49,8 @@ class Membre extends Model
 		'nom',
 		'prenom',
 		'date_naissance',
-		'login',
+        'sexe_id',
+        'login',
 		'mdp'
 	];
 
@@ -61,7 +64,13 @@ class Membre extends Model
 		return $this->belongsTo(Role::class);
 	}
 
-	public function depenses()
+    public function sexe()
+    {
+        return $this->belongsTo(Sexe::class);
+    }
+
+
+    public function depenses()
 	{
 		return $this->hasMany(Depense::class);
 	}
