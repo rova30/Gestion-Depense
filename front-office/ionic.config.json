@@ -1,0 +1,7 @@
+{
+  "name": "front-office",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
