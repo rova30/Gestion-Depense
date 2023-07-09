@@ -6,9 +6,7 @@ import {
     IonDatetime, IonDatetimeButton,
     IonInput,
     IonItem, IonLabel, IonModal,
-    IonRow,
-    IonSelect,
-    IonSelectOption
+    IonRow
 } from "@ionic/react";
 import {Famille} from "../../data/famille.service";
 import SelectRole from "../role/SelectRole";
