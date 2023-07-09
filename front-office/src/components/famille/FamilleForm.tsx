@@ -12,8 +12,9 @@ const FamilleForm: React.FC = () => {
 
         createFamille(nom)
             .then(response => {
-                console.log('Famille créée avec succès', response.data);
-                localStorage.setItem('famille_id', response.data.famille_id);
+                const famille = response.data;
+                console.log('Famille créée avec succès', famille);
+                localStorage.setItem('famille', JSON.stringify(famille));
                 Swal('Succès', 'La famille a été créée avec succès.', 'success').then(() => {
                     window.location.href = '/nouveau-membre';
                 });

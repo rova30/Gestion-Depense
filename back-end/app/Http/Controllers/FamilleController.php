@@ -16,6 +16,6 @@ class FamilleController extends Controller
         $famille = new Famille();
         $famille->nom = $request->input('nom');
         $famille->save();
-        return response()->json(['message' => 'Famille créée avec succès', 'famille_id' => $famille->id], 201);
+        return response()->json(['message' => 'Famille créée avec succès', 'famille' => $famille], 201);
     }
 }
