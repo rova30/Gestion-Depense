@@ -11,10 +11,10 @@ const AccueilComponent: React.FC = () => {
         <div id="container">
             <IonRow>
                 <IonCol size="6">
-                    <Depense/>
+                    <Revenu/>
                 </IonCol>
                 <IonCol size="6">
-                    <Revenu/>
+                    <Depense/>
                 </IonCol>            
                 <IonCol size="12">
                     <Dashboard/>
