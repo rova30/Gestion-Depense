@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Token;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Membre;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 
 class MembreController extends Controller
@@ -48,17 +50,33 @@ class MembreController extends Controller
             'mdp' => 'required|string',
         ]);
 
-        $credentials = $request->only('login', 'mdp');
+        $membre = Membre::where('login',$request->input('login'))
+                            ->where('mdp',$request->input('mdp'))
+                            ->first();
 
-        if (Auth::guard('membre')->attempt($credentials)) {
-            // Authentification réussie
-            $membre = Auth::guard('membre')->user();
-            $token = $membre->createToken('authToken')->plainTextToken;
+        if ($membre) {
+            $token = $membre->tokens()->where('date_expiration', '>=', Carbon::now()->format('Y-m-d'))->first();
+            if (!$token) {
+                $token = new Token();
+                $token->token = Str::random(40);
+                $token->date_expiration = Carbon::now()->addDay();
+                $membre->tokens()->save($token);
+            }
 
-            return response()->json(['message' => 'Connexion réussie', 'membre' => $membre, 'token' => $token], 200);
+            return response()->json(['message' => 'Connexion réussie', 'membre' => $membre, 'token' => $token->token], 200);
         }
-
         // Identifiants incorrects
         return response()->json(['message' => 'Identifiants incorrects'], 401);
+    }
+
+    public function getMembreByToken($token){
+        $token = Token::where('token',$token)
+                        ->where('date_expiration','>=', Carbon::now()->format('Y-m-d'))
+                        ->first();
+        if(!$token){
+            return response()->json(['message' => 'Veuillez vous connecter'], 403);
+        }
+        $membre = Membre::find($token->membre_id);
+        return response()->json(['message' => 'Membre récupéré', 'membre' => $membre], 201);
     }
 }

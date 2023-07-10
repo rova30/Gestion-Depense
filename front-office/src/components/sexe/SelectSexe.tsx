@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Sexe,getAllSexes } from "../../data/sexe.service";
 import {IonSelect, IonSelectOption} from "@ionic/react";
 
-const SelectSexe = () => {
+const SelectSexe = ({ onChange }: { onChange: (value: string) => void }) => {
     const [sexes, setSexes] = useState<Sexe[]>([]);
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const SelectSexe = () => {
     }, []);
 
     return (
-        <IonSelect label="Sexe" labelPlacement="floating" aria-label="Sexe" placeholder="Choisissez votre sexe">
+        <IonSelect label="Sexe" labelPlacement="floating" aria-label="Sexe" name="sexe" placeholder="Choisissez votre sexe" onIonChange={(e) => onChange(e.detail.value)}>
             {sexes.map(sexe => (
                 <IonSelectOption key={sexe.id} value={sexe.id}>{sexe.nom}</IonSelectOption>
             ))}

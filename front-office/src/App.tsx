@@ -21,9 +21,11 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import Accueil from "./pages/accueil/Accueil";
+import Bienvenue from "./pages/bienvenue/Bienvenue";
 import AjoutFamille from "./pages/famille/ajout/AjoutFamille";
 import AjoutMembre from "./pages/membre/ajout/AjoutMembre";
+import Login from "./pages/membre/login/Login";
+import Accueil from "./pages/accueil/Accueil";
 
 setupIonicReact();
 
@@ -31,8 +33,8 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/accueil">
-          <Accueil />
+        <Route exact path="/bienvenue">
+          <Bienvenue />
         </Route>
         <Route exact path="/nouvelle-famille">
           <AjoutFamille />
@@ -40,8 +42,14 @@ const App: React.FC = () => (
         <Route exact path="/nouveau-membre">
           <AjoutMembre />
         </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/accueil">
+          <Accueil />
+        </Route>
         <Route exact path="/">
-          <Redirect to="/accueil" />
+          <Redirect to="/bienvenue" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

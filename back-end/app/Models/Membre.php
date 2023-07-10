@@ -69,6 +69,12 @@ class Membre extends Model
         return $this->belongsTo(Sexe::class);
     }
 
+    public function tokens()
+    {
+        return $this->hasMany(Token::class);
+    }
+
+
 
     public function depenses()
 	{

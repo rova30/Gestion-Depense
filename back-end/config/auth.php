@@ -18,6 +18,12 @@ return [
         'passwords' => 'users',
     ],
 
+    'membre' => [
+        'driver' => 'eloquent',
+        'provider' => 'membres',
+    ],
+
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -63,6 +69,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'membres' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Membre::class,
         ],
 
         // 'users' => [
@@ -111,5 +121,6 @@ return [
     */
 
     'password_timeout' => 10800,
+
 
 ];

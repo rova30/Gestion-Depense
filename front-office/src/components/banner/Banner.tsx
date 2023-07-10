@@ -10,6 +10,12 @@ const Banner: React.FC = () => {
     const handleClick = () => {
         history.push('/nouvelle-famille');
     };
+    const handleLoginClick = () => {
+        history.push('/login');
+    };
+
+
+
 
     return (
         <div id="container">
@@ -23,7 +29,7 @@ const Banner: React.FC = () => {
                     </IonButton>
                 </IonCol>
                 <IonCol size="6">
-                    <IonButton>
+                    <IonButton onClick={handleLoginClick}>
                         Se connecter
                     </IonButton>
                 </IonCol>

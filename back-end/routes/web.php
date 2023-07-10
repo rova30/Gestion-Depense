@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\FamilleController;
 use App\Http\Controllers\MembreController;
+use App\Http\Controllers\RevenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SexeController;
 use Illuminate\Support\Facades\Route;
@@ -26,3 +28,11 @@ Route::get('/sexes', [SexeController::class, 'getAllSexe']);
 
 Route::post('/familles', [FamilleController::class, 'createFamille']);
 Route::post('/membres', [MembreController::class, 'createMembre']);
+Route::post('/login', [MembreController::class,'login']);
+
+Route::get('/total-depense-par-mois/{famille_id}', [DepenseController::class, 'getTotalDepenseParMois']);
+Route::get('/total-depense-du-mois/{famille_id}', [DepenseController::class, 'getTotalDepenseDuMois']);
+Route::get('/total-revenu-par-mois/{famille_id}', [RevenuController::class, 'getTotalRevenuParMois']);
+Route::get('/total-revenu-du-mois/{famille_id}', [RevenuController::class, 'getTotalRevenuDuMois']);
+
+Route::get('/membre/{token}', [MembreController::class,'getMembreByToken']);

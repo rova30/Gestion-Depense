@@ -1,15 +1,21 @@
 import React from 'react';
 import { IonContent, IonPage } from '@ionic/react';
 import './Accueil.css';
-import Banner from "../../components/banner/Banner";
+import Layout from "../../components/layout/Layout";
+import AccueilComponent from "../../components/accueil/AccueilComponent";
 
 const Accueil: React.FC = () => {
     return (
-        <IonPage>
-            <IonContent fullscreen>
-                <Banner />
-            </IonContent>
-        </IonPage>
+        <Layout
+            render={() => (
+                <IonPage>
+                    <IonContent fullscreen>
+                        <AccueilComponent/>
+                    </IonContent>
+                </IonPage>
+            )}
+            title={"Accueil"}
+        ></Layout>
     );
 };
 

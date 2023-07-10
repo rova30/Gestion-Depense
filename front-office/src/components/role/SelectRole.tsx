@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Role,getAllRoles } from "../../data/role.service";
 import {IonSelect, IonSelectOption} from "@ionic/react";
 
-const SelectRole = () => {
+const SelectRole = ({ onChange }: { onChange: (value: string) => void }) => {
     const [roles, setRoles] = useState<Role[]>([]);
 
     useEffect(() => {
@@ -15,9 +15,9 @@ const SelectRole = () => {
                 console.error('Erreur lors de la récupération des rôles', error);
             });
     }, []);
-    
+
     return (
-    <IonSelect label="Rôle" labelPlacement="floating" aria-label="Rôle" placeholder="Choisissez un ou plusieurs rôles">
+    <IonSelect label="Rôle" labelPlacement="floating" aria-label="Rôle" name="role" placeholder="Choisissez un ou plusieurs rôles" onIonChange={(e) => onChange(e.detail.value)}>
         {roles.map(role => (
             <IonSelectOption key={role.id} value={role.id}>{role.nom}</IonSelectOption>
         ))}
