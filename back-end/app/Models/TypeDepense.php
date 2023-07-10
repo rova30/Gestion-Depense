@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class TypeDepense
  *
  * @property int $id
- * @property int $nom
+ * @property string $nom
  *
  * @property Collection|BudgetDepense[] $budgetdepenses
  * @property Collection|Depense[] $depenses
@@ -25,9 +25,6 @@ class TypeDepense extends Model
 	protected $table = 'typedepenses';
 	public $timestamps = false;
 
-	protected $casts = [
-		'nom' => 'int'
-	];
 
 	protected $fillable = [
 		'nom'

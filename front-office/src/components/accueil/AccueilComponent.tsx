@@ -3,6 +3,7 @@ import './AccueilComponent.css';
 import {IonCol, IonRow} from "@ionic/react";
 import Depense from "./depense/Depense";
 import Revenu from "./revenu/Revenu";
+import Dashboard from './dashboard/Dashboard';
 
 
 const AccueilComponent: React.FC = () => {
@@ -14,6 +15,9 @@ const AccueilComponent: React.FC = () => {
                 </IonCol>
                 <IonCol size="6">
                     <Revenu/>
+                </IonCol>            
+                <IonCol size="12">
+                    <Dashboard/>
                 </IonCol>
             </IonRow>
         </div>

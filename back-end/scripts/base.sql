@@ -1,3 +1,5 @@
+DROP OWNED BY gestion_depense;
+
 CREATE TABLE Familles (
                           id  SERIAL NOT NULL,
                           nom varchar(255) NOT NULL,
@@ -21,9 +23,8 @@ CREATE TABLE Membres (
 
 CREATE TABLE TypeDepenses (
                               id  SERIAL NOT NULL,
-                              nom int4 NOT NULL UNIQUE,
+                              nom varchar(255) NOT NULL UNIQUE,
                               PRIMARY KEY (id));
-
 CREATE TABLE Depenses (
                           id             SERIAL NOT NULL,
                           famille_id     int4 NOT NULL,
@@ -84,7 +85,7 @@ SELECT * FROM Tokens WHERE membre_id = 1 AND date_expiration >= current_date;
 CREATE OR REPLACE VIEW v_total_depense_par_mois
 AS
 WITH years AS (
-    SELECT generate_series(2017, EXTRACT(YEAR FROM CURRENT_DATE)::integer) AS year
+    SELECT EXTRACT(YEAR FROM CURRENT_DATE)::integer AS year
 ),
      months AS (
          SELECT generate_series(1, 12) AS month
@@ -121,7 +122,7 @@ ORDER BY
 CREATE OR REPLACE VIEW v_total_revenu_par_mois
 AS
 WITH years AS (
-    SELECT generate_series(2017, EXTRACT(YEAR FROM CURRENT_DATE)::integer) AS year
+    SELECT EXTRACT(YEAR FROM CURRENT_DATE)::integer AS year
 ),
      months AS (
          SELECT generate_series(1, 12) AS month
