@@ -3,12 +3,11 @@ import './Depense.css';
 import {
     IonCard,
     IonCardHeader,
-    IonCardTitle,
-    IonCardContent, IonSpinner
+    IonCardContent, IonSpinner, IonIcon
 } from "@ionic/react";
 import {getTotalDepenseDuMois} from "../../../data/depense.service";
 import {getMembreByToken} from "../../../data/membre.service";
-
+import { wallet} from 'ionicons/icons';
 
 const Depense: React.FC = () => {
 
@@ -42,19 +41,19 @@ const Depense: React.FC = () => {
     }, [famille, familleChargee]);
     if (!familleChargee) {
         return (
-            <div className="spinner-container" style={{'paddingRight':'80px'}}>
+            <div className="spinner-container" style={{'textAlign':'center'}}>
                 <IonSpinner name="circular" />
             </div>
         );
     }
 
     return (
-        <IonCard>
-            <IonCardHeader>
-                <IonCardTitle>Dépénse mensuelle</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>{depense} Ar</IonCardContent>
-        </IonCard>
+            <div id="card">
+                    <div id="label-depense">
+                        <IonIcon id="icon-depense" icon={wallet}></IonIcon>&nbsp;&nbsp;<h3>Dépenses du mois</h3>
+                    </div>
+                <div id="content-depense"><h4>{depense} Ar</h4></div>
+            </div>
     );
 };
 

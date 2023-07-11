@@ -1,0 +1,40 @@
+
+#card{
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+#label-depense{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 99, 132, 1);
+    border-radius: 20px;
+    height: 37px;
+    overflow: hidden;
+    padding: 12px;
+}
+
+#label-depense h3{
+    font-size: 12px;
+    margin: 0;
+    color:rgba(255, 99, 132, 1);
+    font-family: 'Franklin Gothic', sans-serif;
+
+}
+#label-depense #icon-depense{
+    color:rgba(255, 99, 132, 1);
+    font-size:18px;
+}
+
+
+h4{
+    font-size: 14px;
+    text-align: center;
+    color: black;
+    letter-spacing: 1px;
+    font-family: 'Franklin Gothic', sans-serif;
+}

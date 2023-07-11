@@ -2,12 +2,11 @@ import React, {useEffect, useState} from 'react';
 import './Revenu.css';
 import {
     IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardContent, IonSpinner
+    IonSpinner, IonIcon, IonCardHeader, IonCardContent
 } from "@ionic/react";
 import {getMembreByToken} from "../../../data/membre.service";
 import {getTotalRevenuDuMois} from "../../../data/revenu.service";
+import { cash } from 'ionicons/icons';
 
 
 const Revenu: React.FC = () => {
@@ -42,18 +41,19 @@ const Revenu: React.FC = () => {
     }, [famille, familleChargee]);
     if (!familleChargee) {
         return (
-            <div className="spinner-container" style={{'paddingLeft':'80px'}}>
+            <div className="spinner-container" style={{'textAlign':'center'}}>
                 <IonSpinner name="circular" />
             </div>
         );
     }
     return (
-        <IonCard>
-            <IonCardHeader>
-                <IonCardTitle>Revenu mensuel</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>{revenu} Ar</IonCardContent>
-        </IonCard>
+            <div id="card">
+                    <div id="label-revenu">
+                        <IonIcon id="icon-revenu" icon={cash}></IonIcon>&nbsp;&nbsp;<h3>Revenus du mois</h3>
+                    </div>
+                <div id="content-revenu"><h4>{revenu} Ar</h4></div>
+            </div>
+            
     );
 };
 

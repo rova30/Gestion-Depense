@@ -1,0 +1,7 @@
+  .custom-grid IonRow {
+    margin-bottom: 10px; /* Modifier la marge entre les lignes */
+  }
+
+  .custom-grid IonCol {
+    padding: 10px; /* Modifier le rembourrage des colonnes */
+  }

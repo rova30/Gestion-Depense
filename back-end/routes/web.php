@@ -32,7 +32,9 @@ Route::post('/login', [MembreController::class,'login']);
 
 Route::get('/total-depense-par-mois/{famille_id}', [DepenseController::class, 'getTotalDepenseParMois']);
 Route::get('/total-depense-du-mois/{famille_id}', [DepenseController::class, 'getTotalDepenseDuMois']);
+Route::get('/typedepenses', [DepenseController::class, 'getAllTypeDepense']);
 Route::get('/total-revenu-par-mois/{famille_id}', [RevenuController::class, 'getTotalRevenuParMois']);
 Route::get('/total-revenu-du-mois/{famille_id}', [RevenuController::class, 'getTotalRevenuDuMois']);
+
 
 Route::get('/membre/{token}', [MembreController::class,'getMembreByToken']);

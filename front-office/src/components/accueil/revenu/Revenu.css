@@ -1,0 +1,38 @@
+#card{
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+#label-revenu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 20px;
+    padding: 12px;
+    border: 1px solid rgba(75, 192, 192, 1);
+    height: 37px;
+    overflow: hidden;
+}
+
+#label-revenu h3{
+    font-size: 12px;
+    margin: 0;
+    color:rgba(75, 192, 192, 1);
+    font-family: 'Franklin Gothic', sans-serif;
+}
+#label-revenu #icon-revenu{
+    color:rgba(75, 192, 192, 1);
+    font-size:18px;
+}
+
+
+h4{
+    font-size: 14px;
+    text-align: center;
+    color: black;
+    letter-spacing: 1px;
+    font-family: 'Franklin Gothic', sans-serif;
+}

@@ -26,6 +26,7 @@ import AjoutFamille from "./pages/famille/ajout/AjoutFamille";
 import AjoutMembre from "./pages/membre/ajout/AjoutMembre";
 import Login from "./pages/membre/login/Login";
 import Accueil from "./pages/accueil/Accueil";
+import Depense from './pages/depense/Depense';
 
 setupIonicReact();
 
@@ -48,6 +49,10 @@ const App: React.FC = () => (
         <Route exact path="/accueil">
           <Accueil />
         </Route>
+        <Route exact path="/depense">
+          <Depense />
+        </Route>
+
         <Route exact path="/">
           <Redirect to="/bienvenue" />
         </Route>

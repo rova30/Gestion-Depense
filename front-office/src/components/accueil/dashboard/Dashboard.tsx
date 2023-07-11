@@ -4,7 +4,7 @@ import { ChartConfiguration } from 'chart.js';
 import { getTotalRevenuParMois } from '../../../data/revenu.service';
 import { getTotalDepenseParMois } from '../../../data/depense.service';
 import { getMembreByToken } from '../../../data/membre.service';
-import { IonSpinner } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonSpinner } from '@ionic/react';
 
 const monthNames = [
     'J',
@@ -88,9 +88,9 @@ const Dashboard: React.FC = () => {
                 };
             }
             acc[year].labels.push(monthNames[item.mois - 1]);
-            acc[year].revenus.push(item.total_revenu);
+            acc[year].revenus.push(item.total_revenu / 1000000);
             const depenseItem = depenseData.find((depense: any) => depense.annee === year && depense.mois === item.mois);
-            acc[year].depenses.push(depenseItem ? depenseItem.total_depense : 0);
+            acc[year].depenses.push(depenseItem ? depenseItem.total_depense / 1000000: 0);
             return acc;
             }, {}) as GroupedData;
 
@@ -140,15 +140,18 @@ const Dashboard: React.FC = () => {
     }, [famille,familleChargee]);
     if (!familleChargee) {
         return (
-            <div className="spinner-container">
+            <div className="spinner-container" style={{'textAlign':'center'}}>
                 <IonSpinner name="circular" />
             </div>
         );
     }
   
     return (
-      <div >
-        <canvas ref={chartRef} width="400" height="400"></canvas>
+      <div id="card">
+        <h5 style={{'textAlign':'center','color':'black','fontSize':'15px'}}>Statistiques de revenus et dépenses de cette année. (million Ariary)</h5>
+      <div style={{'position': 'relative', 'height':'%', 'width':'100%'}}>
+        <canvas ref={chartRef}></canvas>
+      </div>
       </div>
     );
   };

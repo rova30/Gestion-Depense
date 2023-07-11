@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TypeDepense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,5 +16,10 @@ class DepenseController extends Controller
     public function getTotalDepenseDuMois($famille_id){
         $data = DB::select('SELECT * FROM v_total_depense_du_mois WHERE famille_id = ?',[$famille_id]);
         return response()->json(['depense' => $data], 200);
+    }
+
+    public function getAllTypeDepense() {
+        $data = TypeDepense::all();
+        return response()->json(['typedepenses' => $data], 200);
     }
 }
