@@ -19,3 +19,8 @@ export const getAllTypeDepenses = () => {
     return axios.get<TypeDepense[]>(baseUrl('typedepenses'));
 };
 
+export const createDepense = (famille_id: number | undefined, membre: number | undefined, type_depense: number, montant: number, date_depense:string) => {
+    const depenseData = { famille: famille_id, membre: membre, type: type_depense, montant: montant, date: date_depense};
+    return axios.post(baseUrl('ajout-depense'), depenseData);
+}
+

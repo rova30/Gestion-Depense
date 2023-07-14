@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import './Depense.css';
+import './Caisse.css';
 import {
 IonSpinner, IonIcon
 } from "@ionic/react";
 import {getTotalDepenseDuMois} from "../../../data/depense.service";
 import {getMembreByToken} from "../../../data/membre.service";
 import { ellipse} from 'ionicons/icons';
-import {BiUpArrowCircle} from 'react-icons/bi';
-const Depense: React.FC = () => {
+import { getTotalEnCaisseParFamille } from '../../../data/famille.service';
+
+const CaisseComponent: React.FC = () => {
 
     const [famille, setFamille] = useState(0);
-    const [depense, setDepense] = useState(0);
+    const [caisse, setCaisse] = useState(0);
     const [familleChargee, setFamilleChargee] = useState(false);
 
     useEffect(() => {
@@ -27,13 +28,12 @@ const Depense: React.FC = () => {
 
     useEffect(() => {
         if (familleChargee) {
-            getTotalDepenseDuMois(famille)
+            getTotalEnCaisseParFamille(famille)
                 .then(response => {
-                    console.log(response.data);
-                    setDepense(parseFloat(response.data.depense[0].total_depense));
+                    setCaisse(response.data.caisse[0].montant_caisse_total);
                 })
                 .catch(error => {
-                    console.error('Erreur lors de la récupération de la total de dépense du mois', error);
+                    console.error('Erreur lors de la récupération de la caisse', error);
                 });
         }
     }, [famille, familleChargee]);
@@ -45,14 +45,21 @@ const Depense: React.FC = () => {
         );
     }
 
+    function formatAmount(amount: number): string {
+        const formattedAmount = new Intl.NumberFormat('fr-FR').format(amount);
+    
+        return formattedAmount;
+      }
+    
+
     return (
-            <div id="card-depense">
-                <div id="content-depense">
-                    <BiUpArrowCircle id="icon-depense"/>
-                    <h4>Ar {depense.toLocaleString()}</h4>
+            <div id="card-caisse">
+                <div id="content-caisse">
+                    <h3>Caisse</h3>
+                    <h4>Ar {formatAmount(caisse)}</h4>
                 </div>
             </div>
     );
 };
 
-export default Depense;
+export default CaisseComponent;

@@ -4,6 +4,7 @@ export interface Famille {
     id: number,
     nom: string
 }
+
 export const createFamille = (nom: string) => {
     const familleData = { nom: nom };
     return axios.post<Famille>(baseUrl('familles'), familleData, {
@@ -14,3 +15,7 @@ export const createFamille = (nom: string) => {
         },
     });
 };
+
+export const getTotalEnCaisseParFamille = (famille_id: number) => {
+    return axios.get(baseUrl('caisse/'+famille_id));
+}

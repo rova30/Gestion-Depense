@@ -6,6 +6,7 @@ use App\Http\Controllers\MembreController;
 use App\Http\Controllers\RevenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SexeController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,13 @@ Route::get('/total-depense-du-mois/{famille_id}', [DepenseController::class, 'ge
 Route::get('/typedepenses', [DepenseController::class, 'getAllTypeDepense']);
 Route::get('/total-revenu-par-mois/{famille_id}', [RevenuController::class, 'getTotalRevenuParMois']);
 Route::get('/total-revenu-du-mois/{famille_id}', [RevenuController::class, 'getTotalRevenuDuMois']);
+Route::get('/typerevenus', [RevenuController::class, 'getAllTypeRevenu']);
 
+Route::post('/ajout-depense', [DepenseController::class, 'createDepense']);
+Route::post('/ajout-revenu', [RevenuController::class, 'createRevenu']);
 
 Route::get('/membre/{token}', [MembreController::class,'getMembreByToken']);
+
+
+Route::get('/transactions/{famille_id}',[TransactionController::class,'getAllTransactionByFamilleId']);
+Route::get('/caisse/{famille_id}', [FamilleController::class,'getTotalCaisseParFamille']);

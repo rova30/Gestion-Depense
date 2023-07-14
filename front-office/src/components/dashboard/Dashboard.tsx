@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
-import { ChartConfiguration } from 'chart.js';
-import { getTotalRevenuParMois } from '../../../data/revenu.service';
-import { getTotalDepenseParMois } from '../../../data/depense.service';
-import { getMembreByToken } from '../../../data/membre.service';
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonSpinner } from '@ionic/react';
+import { getTotalRevenuParMois } from '../../data/revenu.service';
+import { getTotalDepenseParMois } from '../../data/depense.service';
+import { getMembreByToken } from '../../data/membre.service';
+import {IonSpinner } from '@ionic/react';
 
 const monthNames = [
     'J',
@@ -27,6 +26,7 @@ const Dashboard: React.FC = () => {
     const [famille, setFamille] = useState(0);
     const [familleChargee, setFamilleChargee] = useState(false);
 
+    const year = new Date().getFullYear();
 
 
     interface GroupedData {
@@ -45,8 +45,8 @@ const Dashboard: React.FC = () => {
 
     function getBorderColor(index: number, datasetIndex: number): string {
     return colors[datasetIndex % colors.length];
-    }  
-
+    }
+        
     useEffect(() => {
         const token = sessionStorage.getItem('token');
         getMembreByToken(token)
@@ -95,35 +95,54 @@ const Dashboard: React.FC = () => {
             }, {}) as GroupedData;
 
             chartInstanceRef.current = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                   labels: Object.values(groupedData)[0].labels,
                   datasets: [
                     ...Object.entries(groupedData).map(([year, group]: [string, any], index: number) => ({
-                      label: `Revenu ${year}`,
+                      label: `Revenu`,
                       data: group.revenus,
                       borderColor: getBorderColor(index, 0), // Utilise la première couleur pour les revenus
-                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                      barPercentage: 0.5,
+                      backgroundColor:getBorderColor(index, 0),
+                      barThickness: 8,
+                      maxBarThickness: 10,
+                      minBarLength: 6,
                       fill: false,
                     })),
                     ...Object.entries(groupedData).map(([year, group]: [string, any], index: number) => ({
-                      label: `Dépense ${year}`,
+                      label: `Dépense`,
                       data: group.depenses,
                       borderColor: getBorderColor(index, 1), // Utilise la deuxième couleur pour les dépenses
-                      backgroundColor: 'rgba(0, 0, 0, 0)',
+                      barPercentage: 0.5,
+                      barThickness: 8,
+                      backgroundColor:getBorderColor(index, 1),
+                      maxBarThickness: 10,
+                      minBarLength: 6,
                       fill: false,
                     })),
                   ],
                 },
+                
                 options: {
+                  
                 scales: {
-                x: {
+                  x: {
+                    grid: {
+                      offset: true
+                    },
                     ticks: {
-                    autoSkip: false, // Désactive le saut automatique des ticks
+                      autoSkip: false,
                     },
                 },
                 y: {
                     beginAtZero: true,
+                    ticks: {
+                      callback: function (tickValue: string | number) {
+                        const value = Number(tickValue); // Convertit la valeur en number
+                        return value + ' M'; // Ajoute "M" à côté de la valeur
+                      },
+                    },
                 },
                 },
             },
@@ -148,7 +167,7 @@ const Dashboard: React.FC = () => {
   
     return (
       <div id="card">
-        <h5 style={{'textAlign':'center','color':'black','fontSize':'15px'}}>Statistiques de revenus et dépenses de cette année. (million Ariary)</h5>
+        <h5 style={{'textAlign':'center','color':'black','fontSize':'15px'}}>Statistiques {year}</h5>
       <div style={{'position': 'relative', 'height':'%', 'width':'100%'}}>
         <canvas ref={chartRef}></canvas>
       </div>

@@ -3,7 +3,7 @@ import {Menu} from "./MenuItem";
 export const menuItems: Menu[] = [
     {
         title: 'Accueil',
-        path: '/accueil'
+        path: '/accueil',
     },
     {
         title: 'Dépense',

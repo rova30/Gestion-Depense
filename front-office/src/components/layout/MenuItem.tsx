@@ -1,5 +1,6 @@
 import {IonItem, IonLabel, IonMenuToggle} from "@ionic/react";
 import React from "react";
+import './MenuItem.css';
 
 export interface Menu {
 
@@ -13,9 +14,9 @@ interface MenuItemProps {
 
 export const MenuItem: React.FC<MenuItemProps> = ({menu}) => {
     return (
-        <IonMenuToggle>
-            <IonItem routerLink={menu.path} >
-                <IonLabel>
+        <IonMenuToggle id="menu-toggle">
+            <IonItem routerLink={menu.path} lines="none" id="menu-item">
+                <IonLabel style={{'fontFamily':'QuickSand'}}>
                     {menu.title}
                 </IonLabel>
             </IonItem>

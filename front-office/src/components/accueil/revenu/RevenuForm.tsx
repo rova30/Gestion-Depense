@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './DepenseForm.css';
+import './RevenuForm.css';
 import {
     IonButton,
     IonCol, IonContent,
@@ -9,11 +9,11 @@ import {
     IonRow
 } from "@ionic/react";
 import Swal from "sweetalert";
-import SelectTypeDepense from '../../typeDepense/SelectTypeDepense';
-import { createDepense } from '../../../data/depense.service';
 import { getMembreByToken, Membre } from '../../../data/membre.service';
+import { createRevenu } from '../../../data/revenu.service';
+import SelectTypeRevenu from '../../typeRevenu/SelectTypeRevenu';
 
-const DepenseForm: React.FC = () => {
+const RevenuForm: React.FC = () => {
     const [famille, setFamille] = useState(0);
     const [membre, setMembre] = useState<Membre | null>(null);
 
@@ -29,6 +29,7 @@ const DepenseForm: React.FC = () => {
     const handleDateChange = (event: CustomEvent) => {
         const newDate = event.detail.value;
         setDate(newDate);
+        console.log("fefe"+date);
     };
 
     useEffect(() => {
@@ -37,7 +38,6 @@ const DepenseForm: React.FC = () => {
             .then(response => {
                 setFamille(response.data.membre.famille_id);
                 setMembre(response.data.membre);
-                console.log('fefe'+membre)
             })
             .catch(error => {
                 console.error('Erreur lors de la récupération du membre', error);
@@ -47,19 +47,19 @@ const DepenseForm: React.FC = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        createDepense(famille,membre?.id,parseInt(type),parseFloat(montant),date)
+        createRevenu(famille,membre?.id,parseInt(type),parseFloat(montant),date)
         .then(response => {
-            console.log('Nouvelle dépense ajoutée', response.data);
-            Swal('Succès', 'Nouvelle dépense ajoutée.', 'success').then(() => {
+            console.log('Nouveau revenu ajouté', response.data);
+            Swal('Succès', 'Nouveau revenu ajouté.', 'success').then(() => {
                 window.location.href = '/accueil';
             });
         })
         .catch(error => {
-            console.error('Erreur lors de l\'ajout d\'une nouvelle dépénse', error);
+            console.error('Erreur lors de l\'ajout d\'un nouveau revenu', error);
             if (error.response && error.response.data && error.response.data.message) {
                 Swal('Erreur', error.response.data.message, 'error');
             } else {
-                Swal('Erreur', 'Erreur lors de l\'ajout d\'une nouvelle dépénse.', 'error');
+                Swal('Erreur', 'Erreur lors de l\'ajout d\'un nouveau revenu.', 'error');
             }
         });
 
@@ -71,12 +71,12 @@ const DepenseForm: React.FC = () => {
                 <IonRow>
                     <IonCol size="12">
                         <div id="title">
-                            <h1>Nouvelle dépense</h1>
+                            <h1>Nouveau revenu</h1>
                         </div>
                     </IonCol>
                     <IonCol size="12">
                         <IonItem className="centered-input">
-                            <SelectTypeDepense onChange={handleTypeChange}/>
+                            <SelectTypeRevenu onChange={handleTypeChange}/>
                         </IonItem>
                     </IonCol>
                     <IonCol size="12">
@@ -93,7 +93,7 @@ const DepenseForm: React.FC = () => {
                     </IonCol>
                     <IonCol size="12">
                         <IonItem style={{'paddingRight':'32px'}}>
-                            <IonLabel>Date de dépense</IonLabel>
+                            <IonLabel>Date de revenu</IonLabel>
                             <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
                             <IonModal keepContentsMounted={true}>
                                 <IonDatetime
@@ -117,4 +117,4 @@ const DepenseForm: React.FC = () => {
     );
 };
 
-export default DepenseForm;
+export default RevenuForm;

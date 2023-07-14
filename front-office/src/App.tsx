@@ -27,6 +27,8 @@ import AjoutMembre from "./pages/membre/ajout/AjoutMembre";
 import Login from "./pages/membre/login/Login";
 import Accueil from "./pages/accueil/Accueil";
 import Depense from './pages/depense/Depense';
+import Revenu from './pages/revenu/Revenu';
+import Stats from './pages/stats/Stats';
 
 setupIonicReact();
 
@@ -34,6 +36,19 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
+      <Route exact path="/accueil">
+          <Accueil />
+        </Route>
+        <Route exact path="/depense">
+          <Depense />
+        </Route>
+        <Route exact path="/revenu">
+          <Revenu />
+        </Route>
+        <Route exact path="/stats">
+          <Stats />
+        </Route>
+
         <Route exact path="/bienvenue">
           <Bienvenue />
         </Route>
@@ -46,13 +61,6 @@ const App: React.FC = () => (
         <Route exact path="/login">
           <Login />
         </Route>
-        <Route exact path="/accueil">
-          <Accueil />
-        </Route>
-        <Route exact path="/depense">
-          <Depense />
-        </Route>
-
         <Route exact path="/">
           <Redirect to="/bienvenue" />
         </Route>

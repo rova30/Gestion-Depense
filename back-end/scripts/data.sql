@@ -136,17 +136,17 @@ INSERT INTO Revenus (famille_id, membre_id, typeRevenu_id, montant, date_revenu)
     (1, 1, 1, 150000, '2023-06-15');
 INSERT INTO Depenses (famille_id, membre_id, typeDepense_id, montant, date_depense) VALUES
                                                                                         (1, 2, 2, 60000, '2023-06-07'),
-                                                                                        (1, 3, 3, 25000, '2023-06-14'),
-                                                                                        (1, 5, 6, 2100, '2023-06-26');
+                                                                                        (1, 3, 3, 25000, '2023-06-13'),
+                                                                                        (1, 5, 6, 2100, '2023-06-14');
 
 
 -- Juillet 2023
 INSERT INTO Revenus (famille_id, membre_id, typeRevenu_id, montant, date_revenu) VALUES
-    (1, 1, 1, 750000, '2023-07-15');
+    (1, 1, 1, 750000, '2023-07-11');
 INSERT INTO Depenses (famille_id, membre_id, typeDepense_id, montant, date_depense) VALUES
                                                                                         (1, 2, 2, 86000, '2023-07-07'),
-                                                                                        (1, 3, 3, 20000, '2023-07-14'),
-                                                                                        (1, 5, 6, 9900, '2023-07-26');
+                                                                                        (1, 3, 3, 20000, '2023-07-12'),
+                                                                                        (1, 5, 6, 9900, '2023-07-13');
 
 
 

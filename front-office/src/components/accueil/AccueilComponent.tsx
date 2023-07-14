@@ -1,28 +1,33 @@
 import React from 'react';
 import './AccueilComponent.css';
-import {IonCol, IonContent, IonGrid, IonRow} from "@ionic/react";
-import Depense from "./depense/Depense";
-import Revenu from "./revenu/Revenu";
-import Dashboard from './dashboard/Dashboard';
+import {IonCol, IonGrid, IonRow} from "@ionic/react";
+import Transactions from './transactions/Transactions';
+import Hero from './header/Hero';
+import Hello from './hello/Hello';
 
 
 const AccueilComponent: React.FC = () => {
     return (
             <>
-                <IonGrid className="custom-grid">
-                    <IonRow>    
-                        <IonCol sizeXl='6' sizeLg='6' sizeMd='6' sizeSm='6' sizeXs='6'>
-                            <Revenu/>
-                        </IonCol>
-                        <IonCol sizeXl='6' sizeLg='6' sizeMd='6' sizeSm='6' sizeXs='6'>
-                            <Depense/>
+                <IonGrid style={{'paddingLeft':'22px'}}>
+                    <IonRow>              
+                        <IonCol size='12'>
+                            <Hello/>
                         </IonCol>
                     </IonRow>
                 </IonGrid>  
+
                 <IonGrid>
                     <IonRow>              
-                        <IonCol>
-                            <Dashboard/>
+                        <IonCol size='12'>
+                            <Hero/>
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>  
+                <IonGrid  style={{'padding':'14px'}}>
+                    <IonRow>              
+                        <IonCol size='12'>
+                            <Transactions/>
                         </IonCol>
                     </IonRow>
                 </IonGrid>

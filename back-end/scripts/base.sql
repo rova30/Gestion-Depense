@@ -31,7 +31,7 @@ CREATE TABLE Depenses (
                           membre_id      int4 NOT NULL,
                           typeDepense_id int4 NOT NULL,
                           montant        numeric(10, 2) NOT NULL,
-                          date_depense   date NOT NULL,
+                          date_depense   timestamp NOT NULL,
                           PRIMARY KEY (id));
 
 CREATE TABLE PartageDepenses (
@@ -54,7 +54,7 @@ CREATE TABLE Revenus (
                          membre_id     int4 NOT NULL,
                          typeRevenu_id int4 NOT NULL,
                          montant       numeric(10, 2) NOT NULL,
-                         date_revenu   date NOT NULL,
+                         date_revenu   timestamp NOT NULL,
                          PRIMARY KEY (id));
 
 CREATE TABLE TypeRevenus (
@@ -76,12 +76,27 @@ create table Tokens (
                         statut boolean not null default true
 );
 
+
+
+ALTER TABLE Membres ADD CONSTRAINT FKMembres130795 FOREIGN KEY (famille_id) REFERENCES Familles (id);
+ALTER TABLE Membres ADD CONSTRAINT FKMembres390450 FOREIGN KEY (role_id) REFERENCES Roles (id);
+ALTER TABLE Depenses ADD CONSTRAINT FKDepenses971107 FOREIGN KEY (famille_id) REFERENCES Familles (id);
+ALTER TABLE Depenses ADD CONSTRAINT FKDepenses131152 FOREIGN KEY (membre_id) REFERENCES Membres (id);
+ALTER TABLE Depenses ADD CONSTRAINT FKDepenses365518 FOREIGN KEY (typeDepense_id) REFERENCES TypeDepenses (id);
+ALTER TABLE PartageDepenses ADD CONSTRAINT FKPartageDep51661 FOREIGN KEY (depense_id) REFERENCES Depenses (id);
+ALTER TABLE PartageDepenses ADD CONSTRAINT FKPartageDep786432 FOREIGN KEY (membre_id) REFERENCES Membres (id);
+ALTER TABLE BudgetDepenses ADD CONSTRAINT FKBudgetDepe478689 FOREIGN KEY (typeDepense_id) REFERENCES TypeDepenses (id);
+ALTER TABLE BudgetDepenses ADD CONSTRAINT FKBudgetDepe113654 FOREIGN KEY (famille_id) REFERENCES Familles (id);
+ALTER TABLE Revenus ADD CONSTRAINT FKRevenus51152 FOREIGN KEY (membre_id) REFERENCES Membres (id);
+ALTER TABLE Revenus ADD CONSTRAINT FKRevenus818178 FOREIGN KEY (famille_id) REFERENCES Familles (id);
+ALTER TABLE Revenus ADD CONSTRAINT FKRevenus170572 FOREIGN KEY (typeRevenu_id) REFERENCES TypeRevenus (id);
+ALTER TABLE Membres ADD CONSTRAINT FKMembres541728 FOREIGN KEY (sexe_id) REFERENCES Sexes (id);
+
+
 SELECT * FROM Tokens WHERE membre_id = 1 AND date_expiration >= current_date;
 
 
-/*Total Dépense par mois depuis 2017 à aujourd'hui*/
-
-
+/*Total Dépense par mois*/
 CREATE OR REPLACE VIEW v_total_depense_par_mois
 AS
 WITH years AS (
@@ -99,8 +114,7 @@ FROM
     years
         CROSS JOIN Familles f
         CROSS JOIN months
-        LEFT JOIN Depenses d ON EXTRACT(YEAR FROM d.date_depense) = years.year AND EXTRACT(MONTH FROM d.date_depense) = months.month
-
+        LEFT JOIN Depenses d ON EXTRACT(YEAR FROM d.date_depense) = years.year AND EXTRACT(MONTH FROM d.date_depense) = months.month AND d.famille_id = f.id
 GROUP BY
     f.id,
     years.year,
@@ -111,16 +125,8 @@ ORDER BY
     months.month;
 
 
-
-
-
-
-
-
-
-/*Total Revenu par mois depuis 2017 à aujourd'hui*/
-CREATE OR REPLACE VIEW v_total_revenu_par_mois
-AS
+/*Total Revenu par mois*/
+CREATE OR REPLACE VIEW v_total_revenu_par_mois AS
 WITH years AS (
     SELECT EXTRACT(YEAR FROM CURRENT_DATE)::integer AS year
 ),
@@ -136,8 +142,7 @@ FROM
     years
         CROSS JOIN Familles f
         CROSS JOIN months
-        LEFT JOIN Revenus r ON EXTRACT(YEAR FROM r.date_revenu) = years.year AND EXTRACT(MONTH FROM r.date_revenu) = months.month
-
+        LEFT JOIN Revenus r ON EXTRACT(YEAR FROM r.date_revenu) = years.year AND EXTRACT(MONTH FROM r.date_revenu) = months.month AND r.famille_id = f.id
 GROUP BY
     f.id,
     years.year,
@@ -149,11 +154,11 @@ ORDER BY
 
 
 
+
 /*Total Dépense du mois en cours*/
 CREATE OR REPLACE VIEW v_total_depense_du_mois
 AS
 SELECT * FROM v_total_depense_par_mois WHERE mois = EXTRACT(MONTH FROM NOW()) AND annee = EXTRACT(YEAR  FROM NOW());
-
 
 
 /*Total Revenu du mois en cours*/
@@ -161,16 +166,40 @@ CREATE OR REPLACE VIEW v_total_revenu_du_mois
 AS
 SELECT * FROM v_total_revenu_par_mois WHERE mois = EXTRACT(MONTH FROM NOW()) AND annee = EXTRACT(YEAR  FROM NOW());
 
-ALTER TABLE Membres ADD CONSTRAINT FKMembres130795 FOREIGN KEY (famille_id) REFERENCES Familles (id);
-ALTER TABLE Membres ADD CONSTRAINT FKMembres390450 FOREIGN KEY (role_id) REFERENCES Roles (id);
-ALTER TABLE Depenses ADD CONSTRAINT FKDepenses971107 FOREIGN KEY (famille_id) REFERENCES Familles (id);
-ALTER TABLE Depenses ADD CONSTRAINT FKDepenses131152 FOREIGN KEY (membre_id) REFERENCES Membres (id);
-ALTER TABLE Depenses ADD CONSTRAINT FKDepenses365518 FOREIGN KEY (typeDepense_id) REFERENCES TypeDepenses (id);
-ALTER TABLE PartageDepenses ADD CONSTRAINT FKPartageDep51661 FOREIGN KEY (depense_id) REFERENCES Depenses (id);
-ALTER TABLE PartageDepenses ADD CONSTRAINT FKPartageDep786432 FOREIGN KEY (membre_id) REFERENCES Membres (id);
-ALTER TABLE BudgetDepenses ADD CONSTRAINT FKBudgetDepe478689 FOREIGN KEY (typeDepense_id) REFERENCES TypeDepenses (id);
-ALTER TABLE BudgetDepenses ADD CONSTRAINT FKBudgetDepe113654 FOREIGN KEY (famille_id) REFERENCES Familles (id);
-ALTER TABLE Revenus ADD CONSTRAINT FKRevenus51152 FOREIGN KEY (membre_id) REFERENCES Membres (id);
-ALTER TABLE Revenus ADD CONSTRAINT FKRevenus818178 FOREIGN KEY (famille_id) REFERENCES Familles (id);
-ALTER TABLE Revenus ADD CONSTRAINT FKRevenus170572 FOREIGN KEY (typeRevenu_id) REFERENCES TypeRevenus (id);
-ALTER TABLE Membres ADD CONSTRAINT FKMembres541728 FOREIGN KEY (sexe_id) REFERENCES Sexes (id);
+
+/*Somme dépense hatrizay par famille*/
+CREATE OR REPLACE VIEW v_total_depense_par_famille
+AS
+SELECT famille_id, SUM(total_depense) AS somme_depense
+FROM v_total_depense_par_mois
+GROUP BY famille_id;
+
+/*Somme revenu hatrizay par famille*/
+CREATE OR REPLACE VIEW v_total_revenu_par_famille
+AS
+SELECT famille_id, SUM(total_revenu) AS somme_revenu
+FROM v_total_revenu_par_mois
+GROUP BY famille_id;
+
+/*Total en caisse par famille*/
+CREATE OR REPLACE VIEW v_total_en_caisse_par_famille
+AS
+SELECT d.famille_id, (r.somme_revenu - d.somme_depense) AS montant_caisse_total
+FROM v_total_revenu_par_famille r
+JOIN v_total_depense_par_famille d ON r.famille_id = d.famille_id;
+
+
+
+CREATE OR REPLACE VIEW v_transactions AS
+SELECT d.famille_id, M.nom,M.prenom, 'Dépense' AS type_transaction, td.nom AS type, d.montant, d.date_depense AS date_transaction
+FROM Depenses d
+            JOIN TypeDepenses td ON d.typeDepense_id = td.id
+            JOIN Membres M on d.membre_id = M.id
+UNION ALL
+SELECT r.famille_id, M.nom,M.prenom, 'Revenu' AS type_transaction, tr.nom AS type, r.montant, r.date_revenu AS date_transaction
+FROM Revenus r
+        JOIN TypeRevenus tr ON r.typeRevenu_id = tr.id
+        JOIN Membres M on r.membre_id = M.id;
+
+
+SELECT * FROM v_transactions WHERE famille_id = 2 ORDER BY date_transaction DESC

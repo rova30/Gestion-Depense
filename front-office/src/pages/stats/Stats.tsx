@@ -1,24 +1,24 @@
 import React from 'react';
 import {IonContent, IonPage} from '@ionic/react';
-import './Accueil.css';
+import './Stats.css';
 import Layout from "../../components/layout/Layout";
-import AccueilComponent from "../../components/accueil/AccueilComponent";
+import StatComponent from "../../components/stats/StatComponent";
 
-const Accueil: React.FC = () => {
+const Stats: React.FC = () => {
     return (
         <Layout
             render={() => (
                 <>
                 <IonPage>
                 <IonContent fullscreen>
-                    <AccueilComponent />
+                    <StatComponent />
                 </IonContent>
                 </IonPage>
                 </>
             )}
-            title={"Accueil"}
+            title={"Stats"}
         ></Layout>
     );
 };
 
-export default Accueil;
+export default Stats;

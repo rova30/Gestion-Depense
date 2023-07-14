@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Depense;
 use App\Models\TypeDepense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,5 +22,30 @@ class DepenseController extends Controller
     public function getAllTypeDepense() {
         $data = TypeDepense::all();
         return response()->json(['typedepenses' => $data], 200);
+    }
+
+    public function createDepense(Request $request) {
+        $request->validate([
+            'famille' => 'required|exists:familles,id',
+            'membre' => 'required|exists:membres,id',
+            'type' => 'required|exists:typedepenses,id',
+            'montant' => 'required|int',
+            'date' => 'required|date'
+        ]);
+
+        if($request->input('montant') <= 0 ) {
+            return response()->json(['message' => 'Veuillez entrer un montant supérieur à 0'], 422);
+        }
+
+        $depense = new Depense();
+        $depense->famille_id = $request->input('famille');
+        $depense->membre_id = $request->input('membre');
+        $depense->typedepense_id = $request->input('type');
+        $depense->montant = $request->input('montant');
+        $depense->date_depense = $request->input('date');
+        $depense->save();
+
+        return response()->json(['message' => 'Nouvelle dépense enregistrée.'], 201);
+
     }
 }
