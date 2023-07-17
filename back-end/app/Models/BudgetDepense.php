@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $typedepense_id
  * @property int $famille_id
  * @property float $montant
+ * @property Carbon $mois
  *
  * @property TypeDepense $typedepense
  * @property Famille $famille
@@ -29,13 +31,15 @@ class BudgetDepense extends Model
 	protected $casts = [
 		'typedepense_id' => 'int',
 		'famille_id' => 'int',
-		'montant' => 'float'
-	];
+		'montant' => 'float',
+        'date_naissance' => 'date',
+    ];
 
 	protected $fillable = [
 		'typedepense_id',
 		'famille_id',
-		'montant'
+		'montant',
+        'mois'
 	];
 
 	public function typedepense()

@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $membre_id
  * @property int $typedepense_id
  * @property float $montant
+ * @property string $libelle
  * @property Carbon $date_depense
  *
  * @property Famille $famille
@@ -45,6 +46,7 @@ class Depense extends Model
 		'membre_id',
 		'typedepense_id',
 		'montant',
+        'libelle',
 		'date_depense'
 	];
 

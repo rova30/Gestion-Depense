@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BudgetDepense;
 use App\Models\Depense;
 use App\Models\TypeDepense;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ class DepenseController extends Controller
             'membre' => 'required|exists:membres,id',
             'type' => 'required|exists:typedepenses,id',
             'montant' => 'required|int',
+            'libelle' => 'required|string',
             'date' => 'required|date'
         ]);
 
@@ -37,11 +39,28 @@ class DepenseController extends Controller
             return response()->json(['message' => 'Veuillez entrer un montant supérieur à 0'], 422);
         }
 
+        $budgets = DB::select("SELECT * from v_budget_par_categorie_par_mois WHERE typedepense_id = ? AND EXTRACT('month' FROM mois) = EXTRACT('month' FROM ?::timestamp) AND famille_id = ?", [$request->input('type'), $request->input('date'), $request->input('famille')]);
+
+        $typedepense = TypeDepense::find($request->input('type'));
+
+        if($budgets[0]->reste_budget < $request->input('montant')){
+            $depense = new Depense();
+            $depense->famille_id = $request->input('famille');
+            $depense->membre_id = $request->input('membre');
+            $depense->typedepense_id = $request->input('type');
+            $depense->montant = $request->input('montant');
+            $depense->libelle = $request->input('libelle');
+            $depense->date_depense = $request->input('date');
+            $depense->save();
+            return response()->json(['message' => 'Vous dépassez le budget pour la catégorie '.$typedepense->nom], 202);
+        }
+
         $depense = new Depense();
         $depense->famille_id = $request->input('famille');
         $depense->membre_id = $request->input('membre');
         $depense->typedepense_id = $request->input('type');
         $depense->montant = $request->input('montant');
+        $depense->libelle = $request->input('libelle');
         $depense->date_depense = $request->input('date');
         $depense->save();
 

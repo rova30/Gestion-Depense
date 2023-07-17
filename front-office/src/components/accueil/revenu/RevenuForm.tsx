@@ -6,7 +6,8 @@ import {
     IonDatetime, IonDatetimeButton,
     IonInput,
     IonItem, IonLabel, IonModal,
-    IonRow
+    IonRow,
+    IonTextarea
 } from "@ionic/react";
 import Swal from "sweetalert";
 import { getMembreByToken, Membre } from '../../../data/membre.service';
@@ -32,6 +33,8 @@ const RevenuForm: React.FC = () => {
         console.log("fefe"+date);
     };
 
+    const [libelle, setLibelle] = useState("");
+
     useEffect(() => {
         const token = sessionStorage.getItem('token');
         getMembreByToken(token)
@@ -46,8 +49,8 @@ const RevenuForm: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
-        createRevenu(famille,membre?.id,parseInt(type),parseFloat(montant),date)
+        
+        createRevenu(famille,membre?.id,parseInt(type),parseFloat(montant),date,libelle)
         .then(response => {
             console.log('Nouveau revenu ajouté', response.data);
             Swal('Succès', 'Nouveau revenu ajouté.', 'success').then(() => {
@@ -67,7 +70,7 @@ const RevenuForm: React.FC = () => {
 
     return (
         <IonContent fullscreen>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} id="form-container">
                 <IonRow>
                     <IonCol size="12">
                         <div id="title">
@@ -75,12 +78,12 @@ const RevenuForm: React.FC = () => {
                         </div>
                     </IonCol>
                     <IonCol size="12">
-                        <IonItem className="centered-input">
+                        <IonItem id="input-form" lines='none'>
                             <SelectTypeRevenu onChange={handleTypeChange}/>
                         </IonItem>
                     </IonCol>
                     <IonCol size="12">
-                        <IonItem className="centered-input">
+                        <IonItem id="input-form" lines='none'>
                             <IonInput
                                 label="Montant"
                                 labelPlacement="floating"
@@ -92,7 +95,7 @@ const RevenuForm: React.FC = () => {
                         </IonItem>
                     </IonCol>
                     <IonCol size="12">
-                        <IonItem style={{'paddingRight':'32px'}}>
+                        <IonItem id="input-form" lines='none'>
                             <IonLabel>Date de revenu</IonLabel>
                             <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
                             <IonModal keepContentsMounted={true}>
@@ -104,10 +107,22 @@ const RevenuForm: React.FC = () => {
                             </IonModal>
                         </IonItem>
                     </IonCol>
+                    <IonCol size="12">
+                    <IonItem id="input-form" lines='none'>
+                        <IonInput 
+                        label="Libellé"
+                        labelPlacement="floating"
+                        value={libelle}
+                        onIonChange={(e) => setLibelle(e.detail.value!)}
+                        placeholder="Ajouter un libellé"
+                        maxlength={20}
+                        ></IonInput>
+                    </IonItem>
+                    </IonCol>
                 </IonRow>
                 <IonRow>
-                <IonCol size="12" style={{'paddingRight':'32px','paddingLeft':'15px','marginTop':'25px'}}>
-                    <IonButton id="custom-button" type="submit">
+                <IonCol size="12">
+                    <IonButton type="submit" id="valid-button">
                         Enregistrer
                     </IonButton>
                 </IonCol>

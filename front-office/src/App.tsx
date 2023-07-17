@@ -29,6 +29,7 @@ import Accueil from "./pages/accueil/Accueil";
 import Depense from './pages/depense/Depense';
 import Revenu from './pages/revenu/Revenu';
 import Stats from './pages/stats/Stats';
+import Budget from './pages/budget/Budget';
 
 setupIonicReact();
 
@@ -47,6 +48,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/stats">
           <Stats />
+        </Route>
+        <Route exact path="/budget">
+          <Budget />
         </Route>
 
         <Route exact path="/bienvenue">

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './FamilleForm.css';
 import { IonButton, IonInput, IonRow, IonCol, IonItem } from "@ionic/react";
 import { createFamille } from "../../data/famille.service";
-import Swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 const FamilleForm: React.FC = () => {
     const [nom, setNom] = useState("");
@@ -15,13 +15,13 @@ const FamilleForm: React.FC = () => {
                 const famille = response.data;
                 console.log('Famille créée avec succès', famille);
                 localStorage.setItem('famille', JSON.stringify(famille));
-                Swal('Succès', 'La famille a été créée avec succès.', 'success').then(() => {
+                Swal.fire('Succès', 'La famille a été créée avec succès.', 'success').then(() => {
                     window.location.href = '/nouveau-membre';
                 });
             })
             .catch(error => {
                 console.error('Erreur lors de la création de la famille', error);
-                Swal('Erreur', 'Erreur lors de la création de la famille.', 'error');
+                Swal.fire('Erreur', 'Erreur lors de la création de la famille.', 'error');
             });
     };
 

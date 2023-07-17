@@ -16,6 +16,7 @@ class VerifyCsrfToken extends Middleware
         '/membres',
         '/login',
         '/ajout-depense',
-        '/ajout-revenu'
+        '/ajout-revenu',
+        '/ajout-budget'
     ];
 }

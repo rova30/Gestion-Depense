@@ -3,11 +3,13 @@ import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonIcon, IonIt
 import { HiCash, HiHome, HiOutlineLogout, HiOutlineMenuAlt2 } from 'react-icons/hi';
 import { GiPayMoney } from 'react-icons/gi';
 import { IoStatsChart } from 'react-icons/io5';
+import { TbReportMoney } from 'react-icons/tb';
 import { useLocation } from 'react-router-dom';
 import './Layout.css';
 import '../theme/custom-tab-bar.css';
 import '../theme/variables.css';
-import {BsPersonFill} from 'react-icons/bs';
+import {BsPeopleFill, BsPersonFill} from 'react-icons/bs';
+import { BiTransfer } from 'react-icons/bi';
 function Layout(props: {
   title: string,
   render: () => JSX.Element
@@ -59,29 +61,43 @@ function Layout(props: {
             </IonMenuToggle>
             <IonMenuToggle id="menu-toggle">
               <IonItem
-                routerLink="/revenu"
+                routerLink="/budget"
                 lines="none"
                 id="menu-item"
-                className={activeItem === "revenu" ? "active-item" : ""}
-                onClick={() => setActiveItem("revenu")}
+                className={activeItem === "budget" ? "active-item" : ""}
+                onClick={() => setActiveItem("budget")}
               >
-                <HiCash size="22px" />&nbsp;&nbsp;
+                <TbReportMoney size="22px" />&nbsp;&nbsp;
                 <IonLabel>
-                  Revenu
+                  Budget
                 </IonLabel>
               </IonItem>
             </IonMenuToggle>
             <IonMenuToggle id="menu-toggle">
               <IonItem
-                routerLink="/depense"
+                routerLink="/transactions"
                 lines="none"
                 id="menu-item"
-                className={activeItem === "depense" ? "active-item" : ""}
-                onClick={() => setActiveItem("depense")}
+                className={activeItem === "transactions" ? "active-item" : ""}
+                onClick={() => setActiveItem("transactions")}
               >
-                <GiPayMoney size="22px" />&nbsp;&nbsp;
+                <BiTransfer size="22px" />&nbsp;&nbsp;
                 <IonLabel>
-                  Dépense
+                  Transaction
+                </IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle id="menu-toggle">
+              <IonItem
+                routerLink="/membres"
+                lines="none"
+                id="menu-item"
+                className={activeItem === "membres" ? "active-item" : ""}
+                onClick={() => setActiveItem("membres")}
+              >
+                <BsPeopleFill size="22px" />&nbsp;&nbsp;
+                <IonLabel>
+                  Membre
                 </IonLabel>
               </IonItem>
             </IonMenuToggle>

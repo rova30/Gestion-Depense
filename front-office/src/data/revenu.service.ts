@@ -19,8 +19,8 @@ export const getAllTypeRevenus = () => {
 };
 
 
-export const createRevenu = (famille_id: number | undefined, membre: number | undefined, type_revenu: number, montant: number, date_revenu:string) => {
-    const revenuData = { famille: famille_id, membre: membre, type: type_revenu, montant: montant, date: date_revenu};
+export const createRevenu = (famille_id: number | undefined, membre: number | undefined, type_revenu: number, montant: number, date_revenu:string, libelle:string) => {
+    const revenuData = { famille: famille_id, membre: membre, type: type_revenu, montant: montant, date: date_revenu, libelle: libelle};
     return axios.post(baseUrl('ajout-revenu'), revenuData);
 }
 

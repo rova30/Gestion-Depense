@@ -31,6 +31,7 @@ CREATE TABLE Depenses (
                           membre_id      int4 NOT NULL,
                           typeDepense_id int4 NOT NULL,
                           montant        numeric(10, 2) NOT NULL,
+                          libelle       varchar(50),
                           date_depense   timestamp NOT NULL,
                           PRIMARY KEY (id));
 
@@ -43,10 +44,12 @@ CREATE TABLE PartageDepenses (
 
 CREATE TABLE BudgetDepenses (
                                 id             SERIAL NOT NULL,
+                                mois            date DEFAULT now(),
                                 typeDepense_id int4 NOT NULL,
                                 famille_id     int4 NOT NULL,
                                 montant        numeric(10, 2) NOT NULL,
                                 PRIMARY KEY (id));
+
 
 CREATE TABLE Revenus (
                          id            SERIAL NOT NULL,
@@ -54,6 +57,7 @@ CREATE TABLE Revenus (
                          membre_id     int4 NOT NULL,
                          typeRevenu_id int4 NOT NULL,
                          montant       numeric(10, 2) NOT NULL,
+                         libelle       varchar(50),
                          date_revenu   timestamp NOT NULL,
                          PRIMARY KEY (id));
 
@@ -189,7 +193,7 @@ FROM v_total_revenu_par_famille r
 JOIN v_total_depense_par_famille d ON r.famille_id = d.famille_id;
 
 
-
+/*Transcations - revenu depense*/
 CREATE OR REPLACE VIEW v_transactions AS
 SELECT d.famille_id, M.nom,M.prenom, 'Dépense' AS type_transaction, td.nom AS type, d.montant, d.date_depense AS date_transaction
 FROM Depenses d
@@ -202,4 +206,43 @@ FROM Revenus r
         JOIN Membres M on r.membre_id = M.id;
 
 
-SELECT * FROM v_transactions WHERE famille_id = 2 ORDER BY date_transaction DESC
+
+/*Budget par type depense par mois*/
+CREATE OR REPLACE VIEW v_budget_par_categorie_par_mois
+AS
+SELECT td.id AS typedepense_id, td.nom AS typedepense, bd.famille_id, bd.mois,
+       bd.montant AS montant_budget,
+       COALESCE(SUM(d.montant), 0) AS somme_depenses,
+       bd.montant - COALESCE(SUM(d.montant), 0) AS reste_budget
+FROM BudgetDepenses bd
+         LEFT JOIN Depenses d ON bd.typeDepense_id = d.typeDepense_id
+    AND bd.famille_id = d.famille_id
+         JOIN typedepenses td ON bd.typeDepense_id = td.id
+WHERE DATE_TRUNC('month', bd.mois) = DATE_TRUNC('month', d.date_depense) OR d.date_depense IS NULL
+GROUP BY td.id, td.nom, bd.famille_id, bd.mois, bd.montant;
+
+
+/*
+SELECT td.id AS typedepense_id, td.nom AS typedepense, bd.famille_id, bd.mois,
+       bd.montant AS montant_budget,
+       COALESCE(SUM(d.montant), 0) AS somme_depenses,
+       bd.montant - COALESCE(SUM(d.montant), 0) AS reste_budget
+FROM BudgetDepenses bd
+         LEFT JOIN Depenses d ON bd.typeDepense_id = d.typeDepense_id
+    AND bd.famille_id = d.famille_id
+         JOIN typedepenses td ON d.typeDepense_id = td.id
+WHERE DATE_TRUNC('month',bd.mois) = DATE_TRUNC('month', d.date_depense)
+GROUP BY bd.famille_id, bd.mois, bd.montant, td.nom, td.id;*/
+
+SELECT * from v_budget_par_categorie_par_mois WHERE typedepense_id = 8 AND EXTRACT('month' FROM mois) = EXTRACT('month' FROM now()) AND famille_id = 1
+
+SELECT td.id AS typedepense_id, td.nom AS typedepense, bd.famille_id, bd.mois,
+       bd.montant AS montant_budget,
+       COALESCE(SUM(d.montant), 0) AS somme_depenses,
+       bd.montant - COALESCE(SUM(d.montant), 0) AS reste_budget
+FROM BudgetDepenses bd
+     LEFT JOIN Depenses d ON bd.typeDepense_id = d.typeDepense_id
+    AND bd.famille_id = d.famille_id
+    JOIN typedepenses td ON bd.typeDepense_id = td.id
+WHERE DATE_TRUNC('month', bd.mois) = DATE_TRUNC('month', d.date_depense) OR d.date_depense IS NULL
+GROUP BY td.id, td.nom, bd.famille_id, bd.mois, bd.montant;

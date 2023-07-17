@@ -29,6 +29,7 @@ class RevenuController extends Controller
             'membre' => 'required|exists:membres,id',
             'type' => 'required|exists:typerevenus,id',
             'montant' => 'required|int',
+            'libelle' => 'required|string',
             'date' => 'required|date'
         ]);
 
@@ -41,6 +42,7 @@ class RevenuController extends Controller
         $revenu->membre_id = $request->input('membre');
         $revenu->typerevenu_id = $request->input('type');
         $revenu->montant = $request->input('montant');
+        $revenu->libelle = $request->input('libelle');
         $revenu->date_revenu = $request->input('date');
         $revenu->save();
 

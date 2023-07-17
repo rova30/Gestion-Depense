@@ -1,3 +1,7 @@
+#container-transaction{
+  margin-bottom: 25px;
+}
+
 #transaction-item{
     box-sizing: border-box;
     border-radius: 22px;
@@ -38,3 +42,14 @@
   #container-title{
     padding-bottom: 5px;
   }
+
+  #voir-plus{
+    margin-top: 15px;
+    text-align: center;
+  }
+
+
+  #voir-button{
+    --border-radius : 25px;
+    font-size: 10px;
+}

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BudgetDepenseController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\FamilleController;
 use App\Http\Controllers\MembreController;
@@ -46,3 +47,7 @@ Route::get('/membre/{token}', [MembreController::class,'getMembreByToken']);
 
 Route::get('/transactions/{famille_id}',[TransactionController::class,'getAllTransactionByFamilleId']);
 Route::get('/caisse/{famille_id}', [FamilleController::class,'getTotalCaisseParFamille']);
+
+
+Route::post('/ajout-budget', [BudgetDepenseController::class, 'addBudget']);
+Route::get('/budget/{famille_id}', [BudgetDepenseController::class, 'getAllBudgetOfTheMonthByFamilleId']);

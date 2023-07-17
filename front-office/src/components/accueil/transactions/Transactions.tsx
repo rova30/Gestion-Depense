@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Transaction, getAllTransactionByFamilleId } from '../../../data/transaction.service';
-import { IonIcon, IonLabel, IonSpinner, IonTitle } from '@ionic/react';
+import { IonButton, IonIcon, IonLabel, IonSpinner, IonTitle } from '@ionic/react';
 import { getMembreByToken } from '../../../data/membre.service';
 import './Transactions.css';
 import { ellipse } from 'ionicons/icons';
@@ -62,7 +62,7 @@ const Transactions: React.FC = () => {
 
   return (
     <>
-    <div>
+    <div id="container-transaction">
       <div id="container-title">
       <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Dernières transactions</h3>
       </div>
@@ -95,6 +95,11 @@ const Transactions: React.FC = () => {
           </div>
         </div>
       ))}
+      <div  id="voir-plus">
+        <IonButton id="voir-button">
+            Voir plus
+        </IonButton>
+        </div>
       </div>
     </>
   );
