@@ -6,21 +6,40 @@
 }
 
 #profil-pic{
+    position: relative;
     width: 100px;
     height: 100px;
     border-radius: 50%;
     margin: 0 auto;
 }
 
-#button-upload{
-    width: 45px;
-    height: 45px;
-    --border-radius: 50%;
+#pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
 }
+
+#btn-modifier {
+    position: absolute;
+    bottom: 15px;
+    right: 12px;
+    transform: translate(50%, 50%);
+    color: var(--ion-color-primary);
+    width: 30px;
+    height: 30px;
+    --border-radius: 50%;
+    --background: rgb(216, 216, 216);
+}
+
 
 #profil-name{
     margin: 0 auto;
     text-align: center;
+}
+
+#camera-icon{
+    color: var(--ion-color-primary);
 }
 
 #profil-name h2{
@@ -44,7 +63,7 @@
 
 #profil-stat h3{
     color: white;
-    font-size: 25px;
+    font-size: 30px;
     font-weight: bold;
     margin-bottom: 0;
 }

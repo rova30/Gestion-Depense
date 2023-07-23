@@ -66,4 +66,11 @@ class DepenseController extends Controller
         return response()->json(['message' => 'Nouvelle dépense enregistrée.'], 201);
 
     }
+
+
+    public function getTotalDepenseAnnuelParCategorie($famille_id){
+        $data = DB::select("SELECT * FROM v_total_depense_par_categorie_annuel WHERE famille_id = ?",[$famille_id]);
+        $somme = DB::select("SELECT SUM(total_depense) FROM v_total_depense_par_categorie_annuel WHERE famille_id = ?",[$famille_id]);
+        return response()->json(['depenses' => $data, 'somme' => $somme], 200);
+    }
 }

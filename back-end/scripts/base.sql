@@ -352,3 +352,80 @@ ORDER BY
 
 
 SELECT * FROM v_profil_par_mois WHERE membre_id = 1 AND famille_id = 1 AND mois = EXTRACT('MONTH' FROM NOW());
+
+CREATE OR REPLACE VIEW v_total_depense_par_categorie_annuel
+    AS
+WITH years AS (
+    SELECT EXTRACT(YEAR FROM CURRENT_DATE)::integer AS year
+),
+     mois_annees AS (
+         SELECT
+             year
+         FROM
+             years
+     ),
+     type_depenses_with_missing AS (
+         SELECT
+             td.id AS typedepense,
+             td.nom AS nom_typedepense,
+             ma.year AS annee
+         FROM
+             mois_annees ma
+                 CROSS JOIN
+             TypeDepenses td
+         GROUP BY
+             td.id,
+             td.nom,
+             ma.year
+         ),
+     familles_with_missing AS (
+         SELECT
+             f.id AS famille_id,
+             ma.year AS annee
+         FROM
+             mois_annees ma
+                 CROSS JOIN
+             Familles f
+         GROUP BY
+             f.id,
+             ma.year
+         )
+SELECT
+    fwm.famille_id,
+    tdm.typedepense AS typedepense_id,
+    tdm.nom_typedepense AS typedepense,
+    ma.year AS annee,
+    COALESCE(SUM(d.montant), 0) AS total_depense
+FROM
+    mois_annees ma
+        CROSS JOIN
+    type_depenses_with_missing tdm
+        CROSS JOIN
+    familles_with_missing fwm
+        LEFT JOIN
+    Depenses d ON ma.year = EXTRACT(YEAR FROM d.date_depense)
+        AND d.famille_id = fwm.famille_id
+        AND d.typeDepense_id = tdm.typedepense
+GROUP BY
+    fwm.famille_id,
+    tdm.typedepense,
+    tdm.nom_typedepense,
+    ma.year
+ORDER BY
+    fwm.famille_id,
+    tdm.typedepense,
+    ma.year;
+
+select sum(montant),famille_id, typeDepense_id FROM Depenses
+group by famille_id, typeDepense_id
+
+
+
+
+
+
+
+
+
+
+

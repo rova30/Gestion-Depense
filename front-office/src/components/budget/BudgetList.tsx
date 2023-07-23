@@ -66,7 +66,8 @@ const BudgetList: React.FC = () => {
                         </div>
                     </div>
                     <div id="progress-budget">
-                    <IonProgressBar value={budget.somme_depenses/budget.montant_budget}></IonProgressBar>                    </div>
+                    <IonProgressBar value={budget.somme_depenses/budget.montant_budget}></IonProgressBar>                    
+                    </div>
                     <div id="bottom-budget">
                         <div id="sommedepense-budget">
                             <IonLabel>Dépense {formatAmount(budget.somme_depenses)} Ar</IonLabel>

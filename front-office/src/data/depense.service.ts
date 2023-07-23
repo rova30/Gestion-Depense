@@ -6,6 +6,14 @@ export interface TypeDepense {
     nom: string;
 }
 
+export interface DepenseParCategorie {
+    famille_id : number,
+    typedepense_id: number,
+    typedepense: number,
+    annee: number,
+    total_depense: number
+}
+
 
 export const getTotalDepenseDuMois = (famille_id: number | undefined) => {
     return axios.get(baseUrl('total-depense-du-mois/'+famille_id));
@@ -24,3 +32,6 @@ export const createDepense = (famille_id: number | undefined, membre: number | u
     return axios.post(baseUrl('ajout-depense'), depenseData);
 }
 
+export const getTotalDepenseAnnuelParCategorie = (famille_id: number | undefined) => {
+    return axios.get(baseUrl('total-depense-annuel-par-categorie/'+famille_id));
+}

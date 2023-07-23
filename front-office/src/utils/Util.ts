@@ -6,7 +6,7 @@ export function formatNumber(number:number) {
     } else if (number >= 1000) {
       return (number / 1000).toFixed(0) + 'k';
     } else {
-      return number;
+      return (number / 1).toFixed(0);
     }
   }
 

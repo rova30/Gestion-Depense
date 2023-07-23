@@ -125,7 +125,7 @@ const ApexChart: React.FC = () => {
                         },
                       },
                     },
-                    colors: ['#7566D9', '#080726'],
+                    colors: ['#07F2B0', '#F20587'],
                     grid: {
                       borderColor: '#A691F2', // Spécifier la couleur des lignes de repère
                     }

@@ -3,9 +3,12 @@ import './Banner.css';
 import {
     IonButton,
     IonImg,
+    IonLabel,
 IonSpinner
 } from "@ionic/react";
 import { getMembreByToken, getProfilDuMois, Profil } from '../../data/membre.service';
+import { BsCameraFill } from 'react-icons/bs';
+import { formatNumber } from '../../utils/Util';
 const Banner: React.FC = () => {
     const [famille, setFamille] = useState(0);
     const [profil, setPofil] = useState<Profil>(Object);
@@ -44,24 +47,13 @@ const Banner: React.FC = () => {
             </div>
         );
     }
-    function formatNumber(number:number) {
-        // Vérifier si le nombre est supérieur ou égal à 1 million (1,000,000)
-        if (number >= 1000000) {
-          // Formater pour les millions (M)
-          return (number / 1000000).toFixed(0) + 'M';
-        } else if (number >= 1000) {
-          // Formater pour les milliers (K)
-          return (number / 1000).toFixed(0) + 'k';
-        } else {
-          // Renvoyer le nombre tel quel s'il est inférieur à 1000
-          return number;
-        }
-      }
+
 
     return (
         <div id="container-profil">
             <div id="profil-pic">
                 <IonImg src={profil.photo} id="pic"/>
+                <IonButton id="btn-modifier"><IonLabel><BsCameraFill id="camera-icon"/></IonLabel></IonButton>
             </div>
             <div id="profil-name">
                 <h2>{profil.prenom}&nbsp;{profil.nom}</h2>
