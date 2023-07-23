@@ -30,13 +30,9 @@ INSERT INTO TypeRevenus(nom) VALUES
 
 
 -- Insertion des familles
-INSERT INTO Familles (nom) VALUES
-('Smith'),
-('Johnson'),
-('Brown'),
-('Davis'),
-('Wilson');
-
+INSERT INTO Familles (nom,responsable) VALUES
+('Smith','johnsmith@example.com'),
+('Johnson','robertjohnson@example.com');
 
 -- Insertion des membres pour chaque famille
 -- Famille Smith
@@ -54,31 +50,6 @@ INSERT INTO Membres (famille_id, role_id, nom, prenom, date_naissance, sexe_id, 
                                                                                                 (2, 2, 'Johnson', 'Sophia', '2008-12-27', 2, 'sophiajohnson@example.com', 'motdepasse8'),
                                                                                                 (2, 3, 'Johnson', 'Daniel', '2011-07-05', 1, 'danieljohnson@example.com', 'motdepasse9'),
                                                                                                 (2, 3, 'Johnson', 'Liam', '2014-05-09', 1, 'liamjohnson@example.com', 'motdepasse10');
-
--- Famille Brown
-INSERT INTO Membres (famille_id, role_id, nom, prenom, date_naissance, sexe_id, login, mdp) VALUES
-                                                                                                (3, 1, 'Brown', 'Michael', '1978-03-20', 1, 'michaelbrown@example.com', 'motdepasse11'),
-                                                                                                (3, 2, 'Brown', 'Jessica', '1984-10-12', 2, 'jessicabrown@example.com', 'motdepasse12'),
-                                                                                                (3, 2, 'Brown', 'Sophie', '2007-07-08', 2, 'sophiebrown@example.com', 'motdepasse13'),
-                                                                                                (3, 3, 'Brown', 'Jacob', '2012-02-25', 1, 'jacobbrown@example.com', 'motdepasse14'),
-                                                                                                (3, 3, 'Brown', 'Mason', '2015-09-17', 1, 'masonbrown@example.com', 'motdepasse15');
-
--- Famille Davis
-INSERT INTO Membres (famille_id, role_id, nom, prenom, date_naissance, sexe_id, login, mdp) VALUES
-                                                                                                (4, 1, 'Davis', 'David', '1982-05-02', 1, 'daviddavis@example.com', 'motdepasse16'),
-                                                                                                (4, 2, 'Davis', 'Jennifer', '1986-11-09', 2, 'jenniferdavis@example.com', 'motdepasse17'),
-                                                                                                (4, 2, 'Davis', 'Ava', '2009-08-14', 2, 'avadavis@example.com', 'motdepasse18'),
-                                                                                                (4, 3, 'Davis', 'Ethan', '2013-04-07', 1, 'ethandavis@example.com', 'motdepasse19'),
-                                                                                                (4, 3, 'Davis', 'Elijah', '2016-12-23', 1, 'elijahdavis@example.com', 'motdepasse20');
-
--- Famille Wilson
-INSERT INTO Membres (famille_id, role_id, nom, prenom, date_naissance, sexe_id, login, mdp) VALUES
-                                                                                                (5, 1, 'Wilson', 'Christopher', '1984-09-08', 1, 'christopherwilson@example.com', 'motdepasse21'),
-                                                                                                (5, 2, 'Wilson', 'Michelle', '1987-02-14', 2, 'michellewilson@example.com', 'motdepasse22'),
-                                                                                                (5, 2, 'Wilson', 'Chloe', '2010-11-19', 2, 'chloewilson@example.com', 'motdepasse23'),
-                                                                                                (5, 3, 'Wilson', 'Alexander', '2014-06-26', 1, 'alexanderwilson@example.com', 'motdepasse24'),
-                                                                                                (5, 3, 'Wilson', 'Noah', '2017-03-31', 1, 'noahwilson@example.com', 'motdepasse25');
-
 
 
 
@@ -185,3 +156,4 @@ INSERT INTO Depenses (famille_id, membre_id, typeDepense_id, montant, date_depen
                                                                                         (2, 3, 3, 310000, '2023-03-20'),
                                                                                         (2, 4, 5, 200000, '2023-03-25'),
                                                                                         (2, 5, 6, 150000, '2023-03-30');
+SELECT * FROM v_transactions WHERE famille_id = 1 AND membre_id = 1 ORDER BY date_transaction DESC

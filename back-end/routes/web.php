@@ -29,6 +29,8 @@ Route::get('/roles', [RoleController::class, 'getAllRole']);
 Route::get('/sexes', [SexeController::class, 'getAllSexe']);
 
 Route::post('/familles', [FamilleController::class, 'createFamille']);
+Route::get('/famille/{famille_id}', [FamilleController::class, 'getFamilleById']);
+
 Route::post('/membres', [MembreController::class, 'createMembre']);
 Route::post('/login', [MembreController::class,'login']);
 
@@ -44,10 +46,12 @@ Route::post('/ajout-revenu', [RevenuController::class, 'createRevenu']);
 
 Route::get('/membre/{token}', [MembreController::class,'getMembreByToken']);
 
-
+Route::get('/transactions/{famille_id}/{membre_id}',[TransactionController::class, 'getAllTransactionByMembreId']);
 Route::get('/transactions/{famille_id}',[TransactionController::class,'getAllTransactionByFamilleId']);
 Route::get('/caisse/{famille_id}', [FamilleController::class,'getTotalCaisseParFamille']);
 
 
 Route::post('/ajout-budget', [BudgetDepenseController::class, 'addBudget']);
 Route::get('/budget/{famille_id}', [BudgetDepenseController::class, 'getAllBudgetOfTheMonthByFamilleId']);
+Route::get('/membres/{famille_id}', [MembreController::class,'getAllMembreByFamilleId']);
+Route::get('/profil/{membre_id}/{famille_id}', [MembreController::class,'getProfilDuMois']);

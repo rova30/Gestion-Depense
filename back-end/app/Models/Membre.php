@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $sexe_id
  * @property string $login
  * @property string $mdp
+ * @property string $photo
+ *
  *
  * @property Famille $famille
  * @property Role $role
@@ -51,7 +53,8 @@ class Membre extends Model
 		'date_naissance',
         'sexe_id',
         'login',
-		'mdp'
+		'mdp',
+        'photo'
 	];
 
 	public function famille()

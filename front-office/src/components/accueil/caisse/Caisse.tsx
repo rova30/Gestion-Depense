@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './Caisse.css';
 import {
-IonSpinner, IonIcon
+IonSpinner
 } from "@ionic/react";
-import {getTotalDepenseDuMois} from "../../../data/depense.service";
 import {getMembreByToken} from "../../../data/membre.service";
-import { ellipse} from 'ionicons/icons';
 import { getTotalEnCaisseParFamille } from '../../../data/famille.service';
+import { formatAmount } from '../../../utils/Util';
 
 const CaisseComponent: React.FC = () => {
 
@@ -45,12 +44,6 @@ const CaisseComponent: React.FC = () => {
         );
     }
 
-    function formatAmount(amount: number): string {
-        const formattedAmount = new Intl.NumberFormat('fr-FR').format(amount);
-    
-        return formattedAmount;
-      }
-    
 
     return (
             <div id="card-caisse">

@@ -12,18 +12,33 @@ import SelectRole from "../role/SelectRole";
 import SelectSexe from "../sexe/SelectSexe";
 import Swal from "sweetalert";
 import {createMembre} from "../../data/membre.service";
-import {Famille} from "../../data/famille.service";
-import {Link} from "react-router-dom";
+import {Famille, getFamilleById} from "../../data/famille.service";
+import {Link, useParams} from "react-router-dom";
+import { GoogleLogin } from 'react-google-login';
+import { gapi} from 'gapi-script';
+import { FcGoogle } from 'react-icons/fc';
 
-const MembreForm: React.FC = () => {
-    const [famille, setFamille] = useState<Famille | null>(null);
+ interface AjoutMembreProps {
+  familleId: string; // Vous pouvez ajuster le type en fonction de votre cas d'utilisation (string, number, etc.).
+}
+const MembreForm: React.FC<AjoutMembreProps> = ({ familleId }) => {
+    const chaine = familleId;
+    const tableauDeMots = chaine.split(':');
+    const famille_id = tableauDeMots.join('');
+
+    const [famille, setFamille] = useState<Famille>();
 
     useEffect(() => {
-        const storedFamille = localStorage.getItem('famille');
-        if (storedFamille) {
-            setFamille(JSON.parse(storedFamille).famille);
-        }
-    }, []);
+        getFamilleById(parseInt(famille_id))
+          .then(response => {
+            setFamille(response.data.famille);
+            console.log(famille);
+          })
+          .catch(error => {
+            console.error('Erreur lors de la récupération de la famille', error);
+          });
+      }, []);
+    
 
     const [nom, setNom] = useState("");
     const [prenom, setPrenom] = useState("");
@@ -48,9 +63,35 @@ const MembreForm: React.FC = () => {
     const [mdp, setMdp] = useState("");
     const [confirmation, setConfirmation] = useState("");
 
+    const clientId = "511930498918-66soc3c8soqeoi9io0nffpjtj7rvqi1v.apps.googleusercontent.com";
+
+    const handleGoogleLoginSuccess = (res : any) => {
+        console.log("LOGIN SUCCESS! Current user: ", res.profileObj);
+        const googleUser = res?.profileObj;
+        setNom(googleUser?.familyName || '');
+        setPrenom(googleUser?.givenName || '');
+        setLogin(googleUser?.email || '');
+
+    }
+
+    useEffect(() => {
+        function start() {
+          gapi.client.init({
+            clientId: clientId,
+            scope: ""
+          })
+        }
+    
+        gapi.load('client:auth2', start);
+      });
+    
+    const handleGoogleLoginFailure = (res : any) => {
+        console.log("LOGIN FAILED! res: ", res);
+    }
+    
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+        console.log(familleId);
         createMembre(famille?.id,nom,prenom,parseInt(role),date,parseInt(sexe),login,mdp,confirmation)
             .then(response => {
                 console.log('Membre ajouté avec succès', response.data);
@@ -70,7 +111,7 @@ const MembreForm: React.FC = () => {
 
     return (
         <IonContent fullscreen>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} id="container-membre">
                 <IonRow>
                     <IonCol size="12">
                         <div id="title">
@@ -78,8 +119,8 @@ const MembreForm: React.FC = () => {
                             <h4>Famille {famille?.nom}</h4>
                         </div>
                     </IonCol>
-                    <IonCol size="12">
-                        <IonItem className="centered-input">
+                    <IonCol size="6">
+                        <IonItem id="membre-form" lines='none'>
                             <IonInput
                                 label="Nom"
                                 labelPlacement="floating"
@@ -90,8 +131,8 @@ const MembreForm: React.FC = () => {
                             ></IonInput>
                         </IonItem>
                     </IonCol>
-                    <IonCol size="12">
-                        <IonItem className="centered-input">
+                    <IonCol size="6">
+                        <IonItem id="membre-form" lines='none'>
                             <IonInput
                                 label="Prénom"
                                 labelPlacement="floating"
@@ -103,12 +144,7 @@ const MembreForm: React.FC = () => {
                         </IonItem>
                     </IonCol>
                     <IonCol size="12">
-                        <IonItem style={{'paddingRight':'32px'}}>
-                            <SelectRole onChange={handleRoleChange} />
-                        </IonItem>
-                    </IonCol>
-                    <IonCol size="12">
-                        <IonItem style={{'paddingRight':'32px'}}>
+                        <IonItem id="membre-form" lines='none'>
                             <IonLabel>Date de naissance</IonLabel>
                             <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
                             <IonModal keepContentsMounted={true}>
@@ -121,13 +157,19 @@ const MembreForm: React.FC = () => {
                             </IonModal>
                         </IonItem>
                     </IonCol>
-                    <IonCol size="12">
-                        <IonItem style={{'paddingRight':'32px'}}>
+                    <IonCol size="6">
+                        <IonItem id="membre-form" lines='none'>
                             <SelectSexe onChange={handleSexeChange}/>
                         </IonItem>
                     </IonCol>
+                    <IonCol size="6">
+                        <IonItem id="membre-form" lines='none'>
+                            <SelectRole onChange={handleRoleChange} />
+                        </IonItem>
+                    </IonCol>
+
                     <IonCol size="12">
-                        <IonItem className="centered-input">
+                        <IonItem id="membre-form" lines='none'>
                             <IonInput
                                 label="Email"
                                 labelPlacement="floating"
@@ -140,7 +182,7 @@ const MembreForm: React.FC = () => {
                         </IonItem>
                     </IonCol>
                     <IonCol size="12">
-                        <IonItem className="centered-input">
+                        <IonItem id="membre-form" lines='none'>
                             <IonInput
                                 label="Mot de passe"
                                 labelPlacement="floating"
@@ -153,7 +195,7 @@ const MembreForm: React.FC = () => {
                         </IonItem>
                     </IonCol>
                     <IonCol size="12">
-                        <IonItem className="centered-input">
+                        <IonItem id="membre-form" lines='none'>
                             <IonInput
                                 label="Confirmer votre mot de passe"
                                 labelPlacement="floating"
@@ -167,10 +209,40 @@ const MembreForm: React.FC = () => {
                     </IonCol>
                 </IonRow>
                 <IonRow>
-                <IonCol size="12" style={{'paddingRight':'32px','paddingLeft':'15px','marginTop':'25px'}}>
+                <IonCol size="12" style={{'marginTop':'25px'}}>
                     <IonButton id="custom-button" type="submit">
                         Valider
                     </IonButton>
+                    <GoogleLogin
+                    clientId={clientId}
+                    render={(renderProps) => (
+                        <button
+                          onClick={renderProps.onClick}
+                          disabled={renderProps.disabled}
+                          style={{
+                            backgroundColor:'white',
+                            marginTop: '10px',
+                            width: '100%',
+                            color: 'black',
+                            display: 'flex',
+                            justifyContent: 'center', // Centrer horizontalement le contenu (le label)
+                            alignItems: 'center', // Centrer verticalement le contenu (le label)
+                            textAlign: 'center', // Centrer le texte à l'intérieur du bouton
+                            padding: '10px 20px', // Ajoutez un padding pour plus d'espace autour du texte
+                            borderRadius: '15px',
+                            height: '50px',
+                            fontSize: '14px',
+                            boxShadow: 'rgba(149, 157, 165, 0.2) 0px 4px 24px'
+                            }}
+                        >
+                            <FcGoogle size={17}/>&nbsp;
+                          S&apos;inscrire avec Google
+                        </button>
+                    )}                    
+                    onSuccess={handleGoogleLoginSuccess}
+                    onFailure={handleGoogleLoginFailure}
+                    cookiePolicy={'single_host_origin'}
+                    />
                 </IonCol>
                 <IonCol size="12" style={{ 'marginTop': '15px' }} id="link">
                     <Link style={{'textDecoration':'none'}} to="/login">Se connecter à un compte existant</Link>

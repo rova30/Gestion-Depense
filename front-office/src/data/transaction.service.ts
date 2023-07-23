@@ -16,5 +16,9 @@ export const getAllTransactionByFamilleId = (famille_id: number | undefined) => 
     return axios.get<Transaction[]>(baseUrl('transactions/'+famille_id));
 };
 
+export const getAllTransactionByMembreId = (famille_id: number | undefined, membre_id: number | undefined) => {
+    return axios.get<Transaction[]>(baseUrl('transactions/'+famille_id+'/'+membre_id));
+};
+
 
 

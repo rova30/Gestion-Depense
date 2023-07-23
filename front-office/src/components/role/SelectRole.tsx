@@ -17,7 +17,7 @@ const SelectRole = ({ onChange }: { onChange: (value: string) => void }) => {
     }, []);
 
     return (
-    <IonSelect label="Rôle" labelPlacement="floating" aria-label="Rôle" name="role" placeholder="Choisissez un ou plusieurs rôles" onIonChange={(e) => onChange(e.detail.value)}>
+    <IonSelect label="Rôle" labelPlacement="floating" aria-label="Rôle" name="role" placeholder="Votre rôle" onIonChange={(e) => onChange(e.detail.value)}>
         {roles.map(role => (
             <IonSelectOption key={role.id} value={role.id}>{role.nom}</IonSelectOption>
         ))}

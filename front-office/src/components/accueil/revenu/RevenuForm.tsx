@@ -6,8 +6,7 @@ import {
     IonDatetime, IonDatetimeButton,
     IonInput,
     IonItem, IonLabel, IonModal,
-    IonRow,
-    IonTextarea
+    IonRow
 } from "@ionic/react";
 import Swal from "sweetalert";
 import { getMembreByToken, Membre } from '../../../data/membre.service';
@@ -108,24 +107,24 @@ const RevenuForm: React.FC = () => {
                         </IonItem>
                     </IonCol>
                     <IonCol size="12">
-                    <IonItem id="input-form" lines='none'>
-                        <IonInput 
-                        label="Libellé"
-                        labelPlacement="floating"
-                        value={libelle}
-                        onIonChange={(e) => setLibelle(e.detail.value!)}
-                        placeholder="Ajouter un libellé"
-                        maxlength={20}
-                        ></IonInput>
-                    </IonItem>
+                        <IonItem id="input-form" lines='none'>
+                            <IonInput 
+                            label="Libellé"
+                            labelPlacement="floating"
+                            value={libelle}
+                            onIonChange={(e) => setLibelle(e.detail.value!)}
+                            placeholder="Ajouter un libellé"
+                            maxlength={20}
+                            ></IonInput>
+                        </IonItem>
                     </IonCol>
                 </IonRow>
                 <IonRow>
-                <IonCol size="12">
-                    <IonButton type="submit" id="valid-button">
-                        Enregistrer
-                    </IonButton>
-                </IonCol>
+                    <IonCol size="12">
+                        <IonButton type="submit" id="valid-button">
+                            Enregistrer
+                        </IonButton>
+                    </IonCol>
                 </IonRow>
             </form>
         </IonContent>

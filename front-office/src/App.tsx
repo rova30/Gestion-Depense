@@ -30,6 +30,9 @@ import Depense from './pages/depense/Depense';
 import Revenu from './pages/revenu/Revenu';
 import Stats from './pages/stats/Stats';
 import Budget from './pages/budget/Budget';
+import Transaction from './pages/transaction/Transaction';
+import Membre from './pages/membre/Membre';
+import Profil from './pages/profil/Profil';
 
 setupIonicReact();
 
@@ -52,21 +55,29 @@ const App: React.FC = () => (
         <Route exact path="/budget">
           <Budget />
         </Route>
-
+        <Route exact path="/transaction">
+          <Transaction />
+        </Route>
+        <Route exact path="/membre">
+          <Membre />
+        </Route>
+        <Route exact path="/profil">
+          <Profil />
+        </Route>
         <Route exact path="/bienvenue">
           <Bienvenue />
         </Route>
         <Route exact path="/nouvelle-famille">
           <AjoutFamille />
         </Route>
-        <Route exact path="/nouveau-membre">
+        <Route exact path="/nouveau-membre/:familleId">
           <AjoutMembre />
         </Route>
         <Route exact path="/login">
           <Login />
         </Route>
         <Route exact path="/">
-          <Redirect to="/bienvenue" />
+          <Redirect to = {sessionStorage.getItem('token') === null ? '/bienvenue' : '/accueil'} />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

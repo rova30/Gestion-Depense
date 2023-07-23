@@ -2,26 +2,28 @@ import React, { useState } from 'react';
 import './FamilleForm.css';
 import { IonButton, IonInput, IonRow, IonCol, IonItem } from "@ionic/react";
 import { createFamille } from "../../data/famille.service";
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert';
 
 const FamilleForm: React.FC = () => {
     const [nom, setNom] = useState("");
+    const [responsable, setResponsable] = useState("");
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        createFamille(nom)
+        createFamille(nom,responsable)
             .then(response => {
-                const famille = response.data;
+                const famille = response.data.famille;
                 console.log('Famille créée avec succès', famille);
                 localStorage.setItem('famille', JSON.stringify(famille));
-                Swal.fire('Succès', 'La famille a été créée avec succès.', 'success').then(() => {
-                    window.location.href = '/nouveau-membre';
+                Swal('Succès', 'La famille a été créée avec succès.', 'success').then(() => {
+                    console.log(famille.id);
+                    window.location.href = '/nouveau-membre/:'+famille.id;
                 });
             })
             .catch(error => {
                 console.error('Erreur lors de la création de la famille', error);
-                Swal.fire('Erreur', 'Erreur lors de la création de la famille.', 'error');
+                Swal('Erreur', 'Erreur lors de la création de la famille.', 'error');
             });
     };
 
@@ -33,23 +35,39 @@ const FamilleForm: React.FC = () => {
                     <meta name="csrf-token" content="{{ csrf_token() }}" />
                     <IonRow className="ion-align-items-center">
                         <IonCol size="12">
-                            <h1>Ajouter une nouvelle famille</h1>
+                            <h1>Nouvelle famille</h1>
                         </IonCol>
                         <IonCol size="12" style={{ 'marginTop': '15px' }}>
-                            <IonItem className="centered-input">
-                                <IonInput
-                                    label="Nom"
-                                    labelPlacement="floating"
-                                    placeholder="Entrer le nom de famille"
-                                    className="centered-text"
-                                    name="nom"
-                                    value={nom}
-                                    onIonChange={(e) => setNom(e.detail.value!)}
-                                ></IonInput>
-                            </IonItem>
+                            <IonInput
+                                label="Nom"
+                                id = "auth-form"
+                                labelPlacement="floating"
+                                placeholder="Entrer le nom de famille"
+                                className="centered-text"
+                                name="nom"
+                                style={{'textAlign':'left'}}
+                                fill='outline'
+                                value={nom}
+                                onIonChange={(e) => setNom(e.detail.value!)}
+                            ></IonInput>
                         </IonCol>
                         <IonCol size="12" style={{ 'marginTop': '15px' }}>
-                            <IonButton type="submit">Enregistrer</IonButton>
+                            <IonInput
+                                label="Responsable"
+                                id = "auth-form"
+                                labelPlacement="floating"
+                                placeholder="Entrer l'email du responsable"
+                                className="centered-text"
+                                name="responsable"
+                                fill='outline'
+                                style={{'textAlign':'left'}}
+                                type="email"
+                                value={responsable}
+                                onIonChange={(e) => setResponsable(e.detail.value!)}
+                            ></IonInput>
+                        </IonCol>
+                        <IonCol size="12" style={{ 'marginTop': '15px' }}>
+                            <IonButton type="submit" id="custom-button">Enregistrer</IonButton>
                         </IonCol>
                     </IonRow>
                 </form>

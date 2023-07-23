@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './Hello.css';
 import {
-IonSpinner, IonIcon
+IonSpinner
 } from "@ionic/react";
 import {getMembreByToken, Membre} from "../../../data/membre.service";
-import { getTotalEnCaisseParFamille } from '../../../data/famille.service';
 
 const Hello: React.FC = () => {
 

@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import './Depense.css';
 import {
-IonSpinner, IonIcon
+IonSpinner
 } from "@ionic/react";
 import {getTotalDepenseDuMois} from "../../../data/depense.service";
 import {getMembreByToken} from "../../../data/membre.service";
-import { ellipse} from 'ionicons/icons';
 import {BiUpArrowCircle} from 'react-icons/bi';
 const Depense: React.FC = () => {
 

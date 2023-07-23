@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Transaction, getAllTransactionByFamilleId } from '../../../data/transaction.service';
-import { IonButton, IonIcon, IonLabel, IonSpinner } from '@ionic/react';
+import { IonIcon, IonLabel, IonSpinner } from '@ionic/react';
 import { getMembreByToken } from '../../../data/membre.service';
 import './Transactions.css';
 import { ellipse } from 'ionicons/icons';
-import moment from 'moment';
 import 'moment/locale/fr';
 import 'moment-timezone';
 import { formatAmount, formatTime } from '../../../utils/Util';
 
-const Transactions: React.FC = () => {
+const TransactionList: React.FC = () => {
   const [famille, setFamille] = useState(0);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [familleChargee, setFamilleChargee] = useState(false);
@@ -48,15 +47,13 @@ const Transactions: React.FC = () => {
     );
   }
 
-
-
   return (
     <>
       <div id="container-transaction">
         <div id="container-title">
-          <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Dernières transactions</h3>
+          <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Toutes les transactions</h3>
         </div>
-        {transactions.slice(0, 5).map(transaction => (
+        {transactions.map(transaction => (
           <div id="transaction-item" key={key++}>
             <div id="left">
               <div id="icon">
@@ -67,12 +64,12 @@ const Transactions: React.FC = () => {
                 ></IonIcon>
               </div>
               <div id="left-item">
-                <div id="membre">
-                  <IonLabel style={{'fontSize':'16px','fontWeight':'bold'}}>{transaction.prenom}</IonLabel>
-                </div>
-                <div id="type-transaction">
-                  <IonLabel style={{'fontSize':'12px'}}>{transaction.type}</IonLabel>
-                </div>
+                  <div id="membre">
+                    <IonLabel style={{'fontSize':'16px','fontWeight':'bold'}}>{transaction.prenom}</IonLabel>
+                  </div>
+                  <div id="type-transaction">
+                    <IonLabel style={{'fontSize':'12px'}}>{transaction.type}</IonLabel>
+                  </div>
               </div>
             </div>
             <div id="right">
@@ -85,14 +82,9 @@ const Transactions: React.FC = () => {
             </div>
           </div>
         ))}
-        <div  id="voir-plus">
-          <IonButton id="voir-button" routerLink='/transaction'>
-              Voir plus
-          </IonButton>
-        </div>
       </div>
     </>
   );
 };
 
-export default Transactions;
+export default TransactionList;

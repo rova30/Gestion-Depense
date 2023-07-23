@@ -4,7 +4,8 @@ import { IonButton, IonLabel, IonProgressBar, IonSpinner } from '@ionic/react';
 import { getMembreByToken } from '../../data/membre.service';
 import './BudgetList.css';
 import ModalBudget from './ModalBudget';
-
+import GrMoney from 'react-icons/gr';
+import { formatAmount } from '../../utils/Util';
 const BudgetList: React.FC = () => {
   const [famille, setFamille] = useState(0);
   const [budgets, setBudgets] = useState<Budget[]>([]);
@@ -37,12 +38,7 @@ const BudgetList: React.FC = () => {
         });
     }
   }, [famille, familleChargee]);
-  
-  function formatAmount(amount: number): string {
-    const formattedAmount = new Intl.NumberFormat('fr-FR').format(amount);
 
-    return formattedAmount;
-  }
 
   if (!familleChargee) {
     return (

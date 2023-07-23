@@ -17,7 +17,7 @@ const SelectSexe = ({ onChange }: { onChange: (value: string) => void }) => {
     }, []);
 
     return (
-        <IonSelect label="Sexe" labelPlacement="floating" aria-label="Sexe" name="sexe" placeholder="Choisissez votre sexe" onIonChange={(e) => onChange(e.detail.value)}>
+        <IonSelect label="Sexe" labelPlacement="floating" aria-label="Sexe" name="sexe" placeholder="Votre sexe" onIonChange={(e) => onChange(e.detail.value)}>
             {sexes.map(sexe => (
                 <IonSelectOption key={sexe.id} value={sexe.id}>{sexe.nom}</IonSelectOption>
             ))}

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Transaction, getAllTransactionByFamilleId } from '../../../data/transaction.service';
-import { IonButton, IonIcon, IonLabel, IonSpinner } from '@ionic/react';
-import { getMembreByToken } from '../../../data/membre.service';
-import './Transactions.css';
+import { IonIcon, IonLabel, IonSpinner } from '@ionic/react';
+import './MyTransaction.css';
 import { ellipse } from 'ionicons/icons';
-import moment from 'moment';
 import 'moment/locale/fr';
 import 'moment-timezone';
-import { formatAmount, formatTime } from '../../../utils/Util';
+import { getMembreByToken } from '../../data/membre.service';
+import { getAllTransactionByMembreId, Transaction } from '../../data/transaction.service';
+import { formatAmount, formatTime } from '../../utils/Util';
 
-const Transactions: React.FC = () => {
+const MyTransaction: React.FC = () => {
   const [famille, setFamille] = useState(0);
+  const [membre, setMembre] = useState(0);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [familleChargee, setFamilleChargee] = useState(false);
   let key = 0;
@@ -19,6 +19,7 @@ const Transactions: React.FC = () => {
     const token = sessionStorage.getItem('token');
     getMembreByToken(token)
       .then(response => {
+        setMembre(response.data.membre.id);
         setFamille(response.data.membre.famille_id);
         setFamilleChargee(true);
       })
@@ -29,9 +30,9 @@ const Transactions: React.FC = () => {
 
   useEffect(() => {
     if (familleChargee) {
-      getAllTransactionByFamilleId(famille)
+      getAllTransactionByMembreId(famille,membre)
         .then(response => {
-          const transcationsData = Array.isArray(response.data) ? response.data : (response.data as any).transactions;
+          const transcationsData = Array.isArray(response.data) ? response.data : (response.data as any).mytransactions;
           setTransactions(transcationsData);
         })
         .catch(error => {
@@ -48,15 +49,13 @@ const Transactions: React.FC = () => {
     );
   }
 
-
-
   return (
     <>
       <div id="container-transaction">
         <div id="container-title">
-          <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Dernières transactions</h3>
+          <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Mes transactions</h3>
         </div>
-        {transactions.slice(0, 5).map(transaction => (
+        {transactions.map(transaction => (
           <div id="transaction-item" key={key++}>
             <div id="left">
               <div id="icon">
@@ -67,12 +66,12 @@ const Transactions: React.FC = () => {
                 ></IonIcon>
               </div>
               <div id="left-item">
-                <div id="membre">
-                  <IonLabel style={{'fontSize':'16px','fontWeight':'bold'}}>{transaction.prenom}</IonLabel>
-                </div>
-                <div id="type-transaction">
-                  <IonLabel style={{'fontSize':'12px'}}>{transaction.type}</IonLabel>
-                </div>
+                  <div id="membre">
+                    <IonLabel style={{'fontSize':'16px','fontWeight':'bold'}}>{transaction.prenom}</IonLabel>
+                  </div>
+                  <div id="type-transaction">
+                    <IonLabel style={{'fontSize':'12px'}}>{transaction.type}</IonLabel>
+                  </div>
               </div>
             </div>
             <div id="right">
@@ -85,14 +84,9 @@ const Transactions: React.FC = () => {
             </div>
           </div>
         ))}
-        <div  id="voir-plus">
-          <IonButton id="voir-button" routerLink='/transaction'>
-              Voir plus
-          </IonButton>
-        </div>
       </div>
     </>
   );
 };
 
-export default Transactions;
+export default MyTransaction;

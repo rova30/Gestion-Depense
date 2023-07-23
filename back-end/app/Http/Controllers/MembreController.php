@@ -6,6 +6,7 @@ use App\Models\Token;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Membre;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 
@@ -77,6 +78,16 @@ class MembreController extends Controller
             return response()->json(['message' => 'Veuillez vous connecter'], 403);
         }
         $membre = Membre::find($token->membre_id);
-        return response()->json(['message' => 'Membre récupéré', 'membre' => $membre], 201);
+        return response()->json(['message' => 'Membre récupéré', 'membre' => $membre], 200);
+    }
+
+    public function getAllMembreByFamilleId($famille_id){
+        $membres = DB::select("SELECT * FROM v_membre WHERE famille_id = ? ORDER BY role_id", [$famille_id]);
+        return response()->json(['message' => 'Membres récupérés', 'membres' => $membres], 200);
+    }
+
+    public function getProfilDuMois($membre_id,$famille_id){
+        $profil = DB::select("SELECT * FROM v_profil_par_mois WHERE membre_id = ? AND famille_id = ? AND mois = EXTRACT('MONTH' FROM NOW())",[$membre_id,$famille_id]);
+        return response()->json(['message' => 'Profil récupéré', 'profil' => $profil[0]], 200);
     }
 }

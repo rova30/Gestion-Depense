@@ -15,8 +15,7 @@ import {
 import SelectTypeDepense from '../../typeDepense/SelectTypeDepense';
 import { createDepense } from '../../../data/depense.service';
 import { getMembreByToken, Membre } from '../../../data/membre.service';
-import swal from 'sweetalert';
-import { AxiosResponse } from 'axios';
+import Swal from 'sweetalert';
 
 const DepenseForm: React.FC = () => {
 
@@ -53,7 +52,7 @@ const DepenseForm: React.FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    swal({
+    Swal({
       title: 'Attention',
       text: 'Êtes-vous sûr de vouloir ajouter cette dépense ?',
       icon: 'warning',
@@ -64,7 +63,7 @@ const DepenseForm: React.FC = () => {
         createDepense(famille, membre?.id, parseInt(type), parseFloat(montant), date, libelle)
           .then(response => {
             console.log('Nouvelle dépense ajoutée', response.data);
-            swal('Succès', 'Requête confirmée.', 'success').then(() => {
+            Swal('Succès', 'Requête confirmée.', 'success').then(() => {
               window.location.href = '/accueil';
             });
           })
@@ -73,7 +72,7 @@ const DepenseForm: React.FC = () => {
           });
       } else {
         // Utilisateur a cliqué sur "Annuler" ou a fermé la boîte de dialogue
-        swal('Info','Enregistrement annulé', 'info');
+        Swal('Info','Enregistrement annulé', 'info');
       }
     });
   };

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './Revenu.css';
 import {
-    IonSpinner, IonIcon
+    IonSpinner
 } from "@ionic/react";
 import {getMembreByToken} from "../../../data/membre.service";
 import {getTotalRevenuDuMois} from "../../../data/revenu.service";

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $nom
+ * @property string $responsable
  *
  * @property Collection|BudgetDepense[] $budgetdepenses
  * @property Collection|Membre[] $membres
@@ -28,7 +29,8 @@ class Famille extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
-		'nom'
+		'nom',
+        'responsable'
 	];
 
 	public function budgetdepenses()

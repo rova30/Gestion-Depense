@@ -11,13 +11,20 @@ class FamilleController extends Controller
     public function createFamille(Request $request)
     {
         $request->validate([
-            'nom' => 'required|string|max:255',
+            'nom' => 'required|string|max:50',
+            'responsable' => 'required|string|max:50'
         ]);
 
         $famille = new Famille();
         $famille->nom = $request->input('nom');
+        $famille->responsable = $request->input('responsable');
         $famille->save();
-        return response()->json(['message' => 'Famille créée avec succès', 'famille' => $famille], 201);
+        return response()->json(['famille' => $famille], 201);
+    }
+
+    public function getFamilleById($famille_id) {
+        $famille = Famille::find($famille_id);
+        return response()->json(['famille' => $famille], 201);
     }
 
     public function getTotalCaisseParFamille($famille_id){

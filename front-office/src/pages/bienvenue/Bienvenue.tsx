@@ -5,7 +5,7 @@ import Banner from "../../components/banner/Banner";
 
 const Bienvenue: React.FC = () => {
     return (
-        <IonPage>
+        <IonPage style={{'padding':'15px'}}>
             <IonContent fullscreen>
                 <Banner />
             </IonContent>

@@ -15,7 +15,7 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import SelectTypeDepense from '../typeDepense/SelectTypeDepense';
 import { createBudget } from '../../data/budget.service';
 import { getMembreByToken, Membre } from '../../data/membre.service';
-import Swal from "sweetalert2";
+import Swal from "sweetalert";
 
 
 const ModalExample = ({
@@ -50,16 +50,16 @@ const ModalExample = ({
         createBudget(famille,parseInt(type),parseFloat(montant))
         .then(response => {
             console.log('Nouveau budget ajouté', response.data);
-            Swal.fire('Succès', 'Nouveau budget ajouté.', 'success').then(() => {
+            Swal('Succès', 'Nouveau budget ajouté.', 'success').then(() => {
                 window.location.href = '/budget';
             });
         })
         .catch(error => {
             console.error('Erreur lors de l\'ajout d\'un nouveau budget', error);
             if (error.response && error.response.data && error.response.data.message) {
-                Swal.fire('Erreur', error.response.data.message, 'error');
+                Swal('Erreur', error.response.data.message, 'error');
             } else {
-                Swal.fire('Erreur', 'Erreur lors de l\'ajout d\'un nouveau budget.', 'error');
+                Swal('Erreur', 'Erreur lors de l\'ajout d\'un nouveau budget.', 'error');
             }
         });
 

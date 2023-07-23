@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonMenuToggle, IonPage, IonPopover, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonMenuToggle, IonPage, IonPopover, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar } from '@ionic/react';
 import { HiCash, HiHome, HiOutlineLogout, HiOutlineMenuAlt2 } from 'react-icons/hi';
 import { GiPayMoney } from 'react-icons/gi';
 import { IoStatsChart } from 'react-icons/io5';
@@ -19,6 +19,13 @@ function Layout(props: {
   const [activeItem, setActiveItem] = useState("");
   const location = useLocation();
 
+  const handleLogout = () => {
+    sessionStorage.removeItem('token');
+    console.log("Déconnexion réussie");
+    window.location.replace('/login');
+    }
+
+
   useEffect(() => {
     const path = location.pathname;
     if (path === "/accueil") {
@@ -29,6 +36,7 @@ function Layout(props: {
       setActiveItem("depense");
     }
   }, [location]);
+
 
   return (
     <>
@@ -75,11 +83,11 @@ function Layout(props: {
             </IonMenuToggle>
             <IonMenuToggle id="menu-toggle">
               <IonItem
-                routerLink="/transactions"
+                routerLink="/transaction"
                 lines="none"
                 id="menu-item"
-                className={activeItem === "transactions" ? "active-item" : ""}
-                onClick={() => setActiveItem("transactions")}
+                className={activeItem === "transaction" ? "active-item" : ""}
+                onClick={() => setActiveItem("transaction")}
               >
                 <BiTransfer size="22px" />&nbsp;&nbsp;
                 <IonLabel>
@@ -89,11 +97,11 @@ function Layout(props: {
             </IonMenuToggle>
             <IonMenuToggle id="menu-toggle">
               <IonItem
-                routerLink="/membres"
+                routerLink="/membre"
                 lines="none"
                 id="menu-item"
-                className={activeItem === "membres" ? "active-item" : ""}
-                onClick={() => setActiveItem("membres")}
+                className={activeItem === "membre" ? "active-item" : ""}
+                onClick={() => setActiveItem("membre")}
               >
                 <BsPeopleFill size="22px" />&nbsp;&nbsp;
                 <IonLabel>
@@ -107,7 +115,7 @@ function Layout(props: {
         <hr/>
           <IonToolbar id="menu-toolbar">
             <IonItem
-                routerLink="/revenu"
+                onClick={handleLogout}
                 lines="none"
                 id="logout-menu-item"
                 >
@@ -140,11 +148,11 @@ function Layout(props: {
           size="auto"
         >
         <IonList>
-        <IonItem button lines="none">
+        <IonItem button lines="none" routerLink='/profil'>
             <BsPersonFill/>&nbsp;
             Mon Profil
           </IonItem>
-          <IonItem button lines="none">
+          <IonItem button lines="none" onClick={handleLogout}>
             <HiOutlineLogout/>&nbsp;
             Déconnexion
           </IonItem>

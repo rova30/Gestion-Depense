@@ -12,3 +12,7 @@
     line-height: 26px;
 }
 
+#banner-button{
+    --border-radius : 15px;
+    height: 45px;
+}

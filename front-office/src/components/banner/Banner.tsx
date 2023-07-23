@@ -1,8 +1,7 @@
 import React from 'react';
 import './Banner.css';
-import {IonButton, IonRow, IonCol} from "@ionic/react";
+import {IonButton, IonRow, IonCol, IonImg, IonGrid} from "@ionic/react";
 import { useHistory } from 'react-router-dom';
-
 
 const Banner: React.FC = () => {
     const history = useHistory();
@@ -19,21 +18,23 @@ const Banner: React.FC = () => {
 
     return (
         <div id="container">
+            <IonGrid>
             <IonRow>
                 <IonCol size="12">
-                    <h1>Bienvenue sur Family App</h1>
+                    <IonImg src="assets/icon/SGN_07_19_2023_1689763150131.png"></IonImg>
                 </IonCol>
                 <IonCol size="6">
-                    <IonButton fill="outline" onClick={handleClick}>
+                    <IonButton fill="outline" onClick={handleClick} id="banner-button">
                         Nouvelle Famille
                     </IonButton>
                 </IonCol>
                 <IonCol size="6">
-                    <IonButton onClick={handleLoginClick}>
+                    <IonButton onClick={handleLoginClick} id="banner-button">
                         Se connecter
                     </IonButton>
                 </IonCol>
             </IonRow>
+            </IonGrid>
         </div>
     );
 };
