@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   IonButtons,
   IonButton,
@@ -14,7 +14,7 @@ import {
 import { OverlayEventDetail } from '@ionic/core/components';
 import SelectTypeDepense from '../typeDepense/SelectTypeDepense';
 import { createBudget } from '../../data/budget.service';
-import { getMembreByToken, Membre } from '../../data/membre.service';
+import { getMembreByToken } from '../../data/membre.service';
 import Swal from "sweetalert";
 
 
@@ -24,7 +24,6 @@ const ModalExample = ({
   onDismiss: (data?: string | null | undefined | number, role?: string) => void;
 }) => {
     const [famille, setFamille] = useState(0);
-    const [membre, setMembre] = useState<Membre | null>(null);
     const [type, setType] = useState("");
     const handleTypeChange = (value: string) => {
         setType(value);
@@ -36,7 +35,6 @@ const ModalExample = ({
         getMembreByToken(token)
             .then(response => {
                 setFamille(response.data.membre.famille_id);
-                setMembre(response.data.membre);
             })
             .catch(error => {
                 console.error('Erreur lors de la récupération du membre', error);

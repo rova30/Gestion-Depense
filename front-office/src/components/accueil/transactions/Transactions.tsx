@@ -4,7 +4,6 @@ import { IonButton, IonIcon, IonLabel, IonSpinner } from '@ionic/react';
 import { getMembreByToken } from '../../../data/membre.service';
 import './Transactions.css';
 import { ellipse } from 'ionicons/icons';
-import moment from 'moment';
 import 'moment/locale/fr';
 import 'moment-timezone';
 import { formatAmount, formatTime } from '../../../utils/Util';

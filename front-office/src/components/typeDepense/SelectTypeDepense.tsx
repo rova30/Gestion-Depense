@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Sexe,getAllSexes } from "../../data/sexe.service";
 import {IonSelect, IonSelectOption} from "@ionic/react";
 import { getAllTypeDepenses, TypeDepense } from '../../data/depense.service';
 

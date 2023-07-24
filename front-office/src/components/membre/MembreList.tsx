@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonImg, IonInput, IonItem, IonLabel, IonModal, IonPage, IonSpinner, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonImg, IonInput, IonItem, IonLabel, IonModal, IonSpinner, IonTitle, IonToolbar } from '@ionic/react';
 import './MembreList.css';
-import moment from 'moment';
 import 'moment/locale/fr';
 import 'moment-timezone';
 import { getAllMembreByFamilleId, getMembreByToken, MembreView } from '../../data/membre.service';
@@ -28,6 +27,7 @@ const MembreList: React.FC = () => {
       console.error('Veuillez saisir une adresse e-mail.');
       return;
     }
+
     setIsLoading(true);
     // Vous devez obtenir vos propres informations d'identification auprès de https://www.emailjs.com/
     const emailJsUserId = 'D9DohatvIaXMkHg3s';
@@ -104,28 +104,28 @@ const MembreList: React.FC = () => {
 
   return (
     <>
-    <div id="container-transaction">
-      <div id="container-title">
-      <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Tous les membres</h3>
-      <IonButton id="button-ajouter" onClick={openModal}>+</IonButton>
-      </div>
-      {membres.map(membre => (
-        <div id="transaction-item" key={key++}>
-          <div id="left">
-          <div id="icon">
-            <IonImg src={membre.photo} style={{'width':'30px'}}></IonImg>
-            </div>
-            <div id="left-item">
-                <div id="membre">
-                <IonLabel style={{'fontSize':'16px','fontWeight':'bold'}}>{membre.prenom}</IonLabel>
+      <div id="container-transaction">
+        <div id="container-title">
+          <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Tous les membres</h3>
+          <IonButton id="button-ajouter" onClick={openModal}>+</IonButton>
+        </div>
+        {membres.map(membre => (
+          <div id="transaction-item" key={key++}>
+            <div id="left">
+            <div id="icon">
+              <IonImg src={membre.photo} style={{'width':'30px'}}></IonImg>
               </div>
-              <div id="type-transaction">
-                <IonLabel style={{'fontSize':'12px'}}>{membre.role}</IonLabel>
+              <div id="left-item">
+                  <div id="membre">
+                  <IonLabel style={{'fontSize':'16px','fontWeight':'bold'}}>{membre.prenom}</IonLabel>
+                </div>
+                <div id="type-transaction">
+                  <IonLabel style={{'fontSize':'12px'}}>{membre.role}</IonLabel>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
       </div>
       <IonModal isOpen={showModal} onDidDismiss={closeModal}>
         <IonHeader className="ion-no-border">
@@ -142,22 +142,22 @@ const MembreList: React.FC = () => {
         </IonHeader>
         <IonContent>
           <div style={{'marginTop':'35px','padding':'15px'}}>
-        <IonItem lines='none' id="input-form">
-            <IonInput
-              label="Email"
-              labelPlacement="floating"
-              required
-              type="email"
-              placeholder="Entrez l'adresse e-mail"
-              value={email}
-              onIonChange={(e) => setEmail(e.detail.value!)}
-            ></IonInput>
-          </IonItem>
-          <IonButton onClick={sendInvitationEmail}  id="valid-button">Envoyer l&apos;invitation</IonButton>
+            <IonItem lines='none' id="input-form">
+              <IonInput
+                label="Email"
+                labelPlacement="floating"
+                required
+                type="email"
+                placeholder="Entrez l'adresse e-mail"
+                value={email}
+                onIonChange={(e) => setEmail(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+            <IonButton onClick={sendInvitationEmail}  id="valid-button">Envoyer l&apos;invitation</IonButton>
           </div>
         </IonContent>
       </IonModal>
-        </>
+    </>
   );
 };
 

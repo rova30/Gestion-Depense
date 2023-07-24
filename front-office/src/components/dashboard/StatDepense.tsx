@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {  IonCol, IonIcon, IonItem, IonLabel, IonProgressBar, IonRow, IonSpinner } from '@ionic/react';
+import {  IonCol, IonIcon, IonLabel, IonProgressBar, IonRow, IonSpinner } from '@ionic/react';
 import { getMembreByToken } from '../../data/membre.service';
 import './StatDepense.css';
-import { formatAmount, formatNumber } from '../../utils/Util';
+import { formatNumber } from '../../utils/Util';
 import { DepenseParCategorie, getTotalDepenseAnnuelParCategorie } from '../../data/depense.service';
 import { ellipse } from 'ionicons/icons';
 const StatDepense: React.FC = () => {

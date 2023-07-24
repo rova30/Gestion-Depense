@@ -3,7 +3,6 @@ import './LoginForm.css';
 import { IonButton, IonInput, IonRow, IonCol, IonItem } from "@ionic/react";
 import Swal from 'sweetalert';
 import {loginService} from '../../data/login.service'
-import {Link} from "react-router-dom";
 import GoogleLogin from 'react-google-login';
 import { FcGoogle } from 'react-icons/fc';
 import { gapi } from 'gapi-script';

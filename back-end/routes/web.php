@@ -56,3 +56,5 @@ Route::post('/ajout-budget', [BudgetDepenseController::class, 'addBudget']);
 Route::get('/budget/{famille_id}', [BudgetDepenseController::class, 'getAllBudgetOfTheMonthByFamilleId']);
 Route::get('/membres/{famille_id}', [MembreController::class,'getAllMembreByFamilleId']);
 Route::get('/profil/{membre_id}/{famille_id}', [MembreController::class,'getProfilDuMois']);
+
+Route::post('/modifier-photo', [MembreController::class, 'updateProfilPic']);

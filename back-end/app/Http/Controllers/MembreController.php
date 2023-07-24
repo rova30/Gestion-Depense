@@ -90,4 +90,11 @@ class MembreController extends Controller
         $profil = DB::select("SELECT * FROM v_profil_par_mois WHERE membre_id = ? AND famille_id = ? AND mois = EXTRACT('MONTH' FROM NOW())",[$membre_id,$famille_id]);
         return response()->json(['message' => 'Profil récupéré', 'profil' => $profil[0]], 200);
     }
+
+    public function updateProfilPic(Request $request){
+        $membre = Membre::find($request->membre_id);
+        $membre->photo = $request->image; // Met à jour la photo avec l'image reçue en base64
+        $membre->save();
+        return response()->json(['message' => 'Photo de profil modifié'], 200);
+    }
 }

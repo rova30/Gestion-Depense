@@ -1,5 +1,5 @@
 import React from 'react';
-import {IonContent, IonPage, IonRefresher, IonRefresherContent} from '@ionic/react';
+import {IonContent, IonPage} from '@ionic/react';
 import './Accueil.css';
 import Layout from "../../components/layout/Layout";
 import AccueilComponent from "../../components/accueil/AccueilComponent";
