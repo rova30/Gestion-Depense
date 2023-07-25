@@ -1,0 +1,15 @@
+#card-hello{
+    width: 100%;
+}
+
+#content-hello h3{
+    font-size: 15px;
+    color: #A691F2;
+    margin-bottom: 0;
+}
+#content-hello h4{
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 0;
+}

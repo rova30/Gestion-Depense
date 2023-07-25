@@ -1,0 +1,36 @@
+#top{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#card-hero{
+    box-sizing: border-box;
+    border-radius: 35px;
+    background-color: #fff;
+
+    padding: 25px;
+    color: #000;
+}
+
+#caisse{
+    margin-top: 25px;
+}
+
+#icon{
+    color:#6A66F2;
+}
+
+#depense-revenu{
+    display: flex;
+    margin-top: 10px;
+}
+
+#right-hero h3{
+    font-size: 12px;
+    margin: 0;
+    font-weight: bold;
+    color: #acacac;
+    text-align: center;
+    margin-left: 20px;
+}
