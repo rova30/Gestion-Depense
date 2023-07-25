@@ -11,7 +11,7 @@ const StatDepense: React.FC = () => {
   const [somme, setSomme] = useState(0);
   const [familleChargee, setFamilleChargee] = useState(false);
 
-  
+
   let key = 0;
 
   useEffect(() => {

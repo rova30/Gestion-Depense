@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonMenuToggle, IonPage, IonPopover, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonMenuToggle, IonPage, IonPopover, IonRefresher, IonRefresherContent, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar, RefresherEventDetail } from '@ionic/react';
 import { HiCash, HiHome, HiOutlineLogout, HiOutlineMenuAlt2 } from 'react-icons/hi';
 import { GiPayMoney } from 'react-icons/gi';
 import { IoStatsChart } from 'react-icons/io5';
@@ -24,7 +24,6 @@ function Layout(props: {
     console.log("Déconnexion réussie");
     window.location.replace('/login');
     }
-
 
   useEffect(() => {
     const path = location.pathname;
