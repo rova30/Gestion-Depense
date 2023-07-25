@@ -61,6 +61,7 @@
     "workbox-strategies": "^5.1.4",
     "workbox-streams": "^5.1.4"
   },
+  
   "devDependencies": {
     "@capacitor/cli": "5.1.1",
     "@types/luxon": "^3.3.0",
