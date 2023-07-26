@@ -1,9 +1,0 @@
-#menu-item{
-    --ion-item-background : #6A66F2;
-    border-radius: 15px;
-    color : #fff;
-}
-#menu-item::after{
-    --ion-item-background : #5549A6;
-    border-radius: 15px;
-}
