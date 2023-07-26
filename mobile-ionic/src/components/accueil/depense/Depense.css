@@ -1,0 +1,23 @@
+
+#card-depense{
+    width: 100%;
+    text-align: center;
+    margin-right: 50px;
+}
+
+
+#content-depense h3{
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+#content-depense h4{
+    font-size: 14px;
+    font-weight: bolder;
+    margin-top: 0;
+}
+
+#icon-depense{
+    font-size: 25px;
+    color: #F20587;
+}

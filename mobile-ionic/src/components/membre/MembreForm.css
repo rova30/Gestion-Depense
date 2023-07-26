@@ -1,0 +1,31 @@
+#title{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#custom-button{
+    width: 100%;
+}
+
+#link{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.custom-button{
+    width: 100%;
+}
+
+#membre-form{
+    margin-top: 7px;
+    --ion-item-background: #fff;
+    border-radius: 17px;
+    color: #000;
+}
+
+#container-membre{
+    margin-top: 55px;
+
+}

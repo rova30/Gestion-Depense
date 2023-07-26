@@ -1,0 +1,25 @@
+#form-container{
+    padding: 15px;
+    margin-top:80px;
+}
+#input-form{
+    margin-top: 10px;
+    --ion-item-background: #fff;
+    border-radius: 17px;
+    color: #000;
+}
+
+
+#valid-button{
+    width: 100%;
+    margin-top: 42px;
+    height: 50px;
+    border-radius: 15px;
+    --border-radius : 17px;
+}
+
+#title h1{
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 35px;
+}

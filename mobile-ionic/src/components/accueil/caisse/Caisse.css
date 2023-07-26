@@ -1,0 +1,19 @@
+#card-caisse{
+    width: 100%;
+}
+
+#content-caisse h3{
+    font-size: 15px;
+    margin: 0;
+    font-weight: bold;
+    color: #acacac;
+}
+span{
+    color: #000;
+}
+
+#content-caisse h4{
+    font-size: 25px;
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
